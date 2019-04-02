@@ -3,12 +3,12 @@
 
 int main_loop();
 
-int arrive_at_floor();
+void arrive_at_floor();
 
-int request_btn_pressed();
+void request_btn_pressed();
 
-int stop_btn_pressed();
+void stop_btn_pressed();
 
-int stop_btn_released();
+void stop_btn_released();
 
-int timer_timeout(); 
+void timer_timeout(); 
