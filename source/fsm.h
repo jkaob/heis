@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include "elev.h"
+#include "queue.h"
 
 typedef enum {
 	State_Idle = 0;
 	State_Move = 1;
-	State_DoorOpen = 2;
+	State_DoorsOpen = 2;
 	State_Stop = 3;
 } ElevState
 
@@ -15,11 +16,10 @@ typedef struct {
 	ElevState 				currentState;
 } Elevator
 
+void move(elev Elev); //Enter STATE_Move
 
-void open_doors();
+void open_doors(); //Enter STATE_DoorsOpen
 
 bool should_stop(int currentFloor, int**queue);		//checks queue and decides if to stop at new floor
-
-void stop(); //denne er jo veldig overflødig
 
 void poll_buttons();

@@ -3,12 +3,12 @@
 
 int main_loop();
 
-void arrive_at_floor();
+void evt_arrive_at_floor(); //when elevator reaches floor
 
-void request_btn_pressed();
+void evt_request_btn_pressed();  //when any request button is pressed
 
-void stop_btn_pressed();
+void evt_stop_btn_pressed(); 
 
-void stop_btn_released();
+void evt_stop_btn_released();
 
-void timer_timeout(); 
+void evt_timer_timeout(); //on door timeout 

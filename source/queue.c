@@ -9,7 +9,6 @@ for (int i = 0; i < N_FLOORS; i++) {
 
 
 bool check_orders_above(int currentFloor, int** queue){
-	
 	if (currentFloor == 3) return 0;
     for (int i = currentFloor; i < N_FLOORS; i++) {
 		for (int j = 0; j < N_BUTTONS; j++) {
@@ -21,7 +20,6 @@ bool check_orders_above(int currentFloor, int** queue){
 }
 
 bool check_orders_below(int currentFloor, int** queue) {
-	
 	if (currentFloor == 0) return 0;
 	for (int i = currentFloor-1 ; i-- >= 0; ) {		//check floors below current
 		for (int j = 0; j < N_BUTTONS; j++) {
@@ -32,9 +30,9 @@ bool check_orders_below(int currentFloor, int** queue) {
 }
 
 
-bool should_stop(int currentFloor, int**queue) {
-	switch(
-}
+/*bool should_stop(int currentFloor, int**queue) {
+	switch()
+}*/
 
 void q_add(int floor, elev_button_type_t button, int** queue) {
 	queue[floor][button] = 1;						//add  order
