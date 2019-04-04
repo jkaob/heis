@@ -1,5 +1,6 @@
 #include <stdio.h>
-
+#include <stdbool.h>
+#include "fsm.h"
 
 int main_loop();
 

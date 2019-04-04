@@ -1,5 +1,8 @@
 #include "elev.h"
+#include "events.h"
+#include "fsm.h"
 #include <stdio.h>
+#include <stdbool.h>
 
 
 int main() {
@@ -14,12 +17,17 @@ int main() {
     elev_set_motor_direction(DIRN_UP);
  
     while (1) {
-        // Change direction when we reach top/bottom floor
+
+        Elevator e;
+        e.currentDir = DIRN_UP;
+        e.queue[2][1] = 1;
+        elev.elev_set_motor_direction(DIRN_UP);
+        /*// Change direction when we reach top/bottom floor
         if (elev_get_floor_sensor_signal() == N_FLOORS - 1) {
             elev_set_motor_direction(DIRN_DOWN);
         } else if (elev_get_floor_sensor_signal() == 0) {
             elev_set_motor_direction(DIRN_UP);
-        }
+        }*/
 
         // Stop elevator and exit program if the stop button is pressed
         if (elev_get_stop_signal()) {

@@ -1,25 +1,31 @@
+#pragma once 
+#include <stdbool.h>
 #include <stdio.h>
 #include "elev.h"
 #include "queue.h"
 
-typedef enum {
+typedef enum tag_elevatorState {
 	State_Idle = 0;
 	State_Move = 1;
 	State_DoorsOpen = 2;
 	State_Stop = 3;
-} ElevState
+} ElevState;
 
 
-typedef struct {
+typedef struct tag_elevator {
 	int 					currentFloor;
 	elev_motor_direction_t 	currentDir;	//enum from "elev.h"
 	ElevState 				currentState;
-} Elevator
+	int 					queue[N_FLOORS][N_BUTTONS];  //2D array:   [index = Actual floor - 1] | order_up | order_down | cab_btn |
 
-void move(elev Elev); //Enter STATE_Move
+} Elevator;
+
+void move(Elevator elev); //Enter STATE_Move
 
 void open_doors(); //Enter STATE_DoorsOpen
 
-bool should_stop(int currentFloor, int**queue);		//checks queue and decides if to stop at new floor
+elev_motor_direction_t set_direction(Elevator* elev);	//chooses (new) direction
+
+bool is_at_floor(); //checks if at floor
 
 void poll_buttons();
