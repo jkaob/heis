@@ -1,3 +1,6 @@
+#ifndef EVENTS_H
+#define EVENTS_H
+
 #include <stdio.h>
 #include <stdbool.h>
 #include "fsm.h"
@@ -13,3 +16,6 @@ void evt_stop_btn_pressed();
 void evt_stop_btn_released();
 
 void evt_timer_timeout(); //on door timeout 
+
+
+#endif

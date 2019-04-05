@@ -2,9 +2,9 @@
 #include "fsm.h"
 
 void move(Elevator* elev) {
-	elev->currentState = State_Move;
-	elev->currentDir = set_direction(elev);
-	
+	elev->currentState = State_Move;			//set State=Move
+	elev->currentDir = set_direction(elev);		//set currentDir
+	elev_set_motor_direction(elev->currentDir); //start motor
 }
 
 void open_doors(Elevator* elev) {

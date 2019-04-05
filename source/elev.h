@@ -8,6 +8,7 @@
 
 // Number of floors
 #define N_FLOORS 4
+#define N_BUTTONS 3
 
 /**
   Initialize elevator.
