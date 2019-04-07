@@ -10,23 +10,23 @@ void move(Elevator* elev) {
 void open_doors(Elevator* elev) {
 	elev_set_motor_direction(0);			//stops elevator
 
-	q_complete(elev)						//clears orders and turns off order lamps
+	q_complete(&elev);						//clears orders and turns off order lamps
 	elev->currentState = State_DoorsOpen;	//changes state
 
 	elev_set_door_open_lamp(1);
 	timer_start(); 							//starts 3sec timer
 }
 
-elev_motor_direction_t set_direction(Elevator elev) {
+elev_motor_direction_t set_direction(Elevator* elev) {
 
 	elev_motor_direction_t newDirection = DIRN_UP;
-	switch(elev.currentDir) {
+	switch(elev->currentDir) {
 		case(DIRN_UP): 											//if current/last direction was UP
-			if (check_orders_above(elev.currentFloor, elev.queue))  {
+			if (check_orders_above(elev))  {
 				newDirection = DIRN_UP;
 				//elev->currentDir = DIRN_UP;
 			}
-			else if (check_orders_below(elev.currentFloor, elev.queue)) {
+			else if (check_orders_below(elev)) {
 				newDirection = DIRN_DOWN;
 				//elev->currentDir = DIRN_DOWN;
 			}
@@ -52,4 +52,20 @@ elev_motor_direction_t set_direction(Elevator elev) {
 
 bool is_at_floor() {
 	return if(elev_get_floor_sensor_signal() == -1);
+}
+
+bool is_btn_pressed(elev_button_type_t* button, int* floor) {
+	for (int f= 0; f < N_FLOORS; f++) {
+		for (int b = 0;  b < N_BUTTONS; b++) {
+			
+			if (!(b == 1 && f == 0) || !(b == 0 && f == 3)) { //checks if button exists
+				if elev_get_button_signal(b, f) {
+					*button = b;
+					*floor = f;
+					return true;
+				}
+			}
+		}
+	}
+	return false;
 }

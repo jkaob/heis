@@ -11,24 +11,23 @@ int main() {
         printf("Unable to initialize elevator hardware!\n");
         return 1;
     }
-
     printf("Press STOP button to stop elevator and exit program.\n");
-
     elev_set_motor_direction(DIRN_UP);
+	
+	
+	//Elevator* e;
+	//init_elevator(Elevator* e);
+	//main_loop(&e);
  
+ 
+	
     while (1) {
-
-        Elevator e;
-        e.currentDir = DIRN_UP;
-        e.queue[2][1] = 1;
-        elev.elev_set_motor_direction(DIRN_UP);
-        /*// Change direction when we reach top/bottom floor
+		
         if (elev_get_floor_sensor_signal() == N_FLOORS - 1) {
             elev_set_motor_direction(DIRN_DOWN);
         } else if (elev_get_floor_sensor_signal() == 0) {
             elev_set_motor_direction(DIRN_UP);
-        }*/
-
+        }
         // Stop elevator and exit program if the stop button is pressed
         if (elev_get_stop_signal()) {
             elev_set_motor_direction(DIRN_STOP);

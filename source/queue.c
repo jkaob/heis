@@ -62,7 +62,9 @@ void q_clear(Elevator* elev) {
 		for (int j = 0; j < N_BUTTONS; j++) {
 			elev->queue[i][j] = 0;						//clear queue
 			
+			if (!(j == 1 && i == 0) || !(j == 0 && i == 3)) { //checks if lamp exists
 			elev_set_button_lamp(j, i, 0); 			//clear all order lamps : j = btn, i = floor
+			}
 		}
 	}
 }
