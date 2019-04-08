@@ -18,7 +18,7 @@ typedef enum tag_elevatorState {
 */
 typedef struct tag_elevator {
 	int 					currentFloor;
-	elev_motor_direction_t 	currentDir;	//enum from "elev.h"
+	elev_motor_direction_t 	currentDir;
 	ElevState 				currentState;
 	int 					queue[N_FLOORS][N_BUTTONS];  //2D array:   [index = Actual floor - 1] | order_up | order_down | cab_btn |
 

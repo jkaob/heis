@@ -1,5 +1,4 @@
 #include "elev.h"
-#include "events.h"
 #include "fsm.h"
 #include <stdio.h>
 #include <stdbool.h>

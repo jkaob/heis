@@ -53,7 +53,7 @@ void q_complete(Elevator* elev) {
 	for (int i = 0; i < N_BUTTONS; i++) {
 		elev->queue[floor][i] = 0;					//clear orders at current floor
 		
-		elev_set_button_lamp(i, elev->currentFloor, 0); 	//turn off lamp
+		elev_set_button_lamp(i, floor, 0); 	//turn off lamp
 	}	
 }
 
