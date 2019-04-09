@@ -36,10 +36,6 @@ bool should_stop(Elevator elev) { 														//also add if there are no order
 	else if (elev.currentDir == DIRN_DOWN) {
 			return (if elev.queue[elev.currentFloor][1]);	//if orders in same direction(down)
 	}
-	/*
-	ADD FUNCTIONALITY IF
-		Hvis denne funksjonen er det som skal avgjøre om heisen skal gå til Idle! 
-	*/
 }
 
 void q_add(int floor, elev_button_type_t button, Elevator* elev) {

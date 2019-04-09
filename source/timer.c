@@ -14,11 +14,23 @@ double current_time() {
     return (double)t.tv_sec * 100000 + (double)t.tv_usec; // -> ms ?
 }
 
+int timer_on(int dur) {
+    endTime = dur + current_time();
+    timerActive = 1;
+}
+
+int timer_off() {
+    timerActive = 0;
+}
+
+int timer_funk() {
+    return (timerActive && time_current() > endTime);
+}
+
 
 int timer_start(int dur) { // starter når dørene åpnes
 	g_timerFlag = 1;
+	
 	endTime = dur + current_time();
-	
-	
 	return (current_time() > endTime);
 }
