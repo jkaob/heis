@@ -3,6 +3,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
 
 static double endTime;
 int g_timerFlag = 0;
@@ -15,7 +16,7 @@ double current_time() {
 
 void timer_start(int dur) { // starter når dørene åpnes
     g_timerFlag = 1;
-    endTime = dur + time(NULL);
+    endTime = dur + current_time();
 }
 
 void timer_stop() {
