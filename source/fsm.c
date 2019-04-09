@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include "fsm.h"
 
-int main_loop(Elevator* elev) {
+int fsm_main_loop(Elevator* elev) {
 	while(1) {
 	
 		{ //IF STOP BUTTON IS PRESSED
 			if (elev_get_stop_signal()) {
-			evt_stop_btn_pressed(elev);
+				fsm_stop_btn_pressed(elev);
 			}
 		}
 	
@@ -14,37 +14,40 @@ int main_loop(Elevator* elev) {
 			elev_button_type_t button;
 			int floor;
 			if (is_btn_pressed(&button, &floor)) { 
-				evt_request_btn_pressed(elev, floor, button);
+				fsm_request_btn_pressed(elev, floor, button);
 			}
 		}
 	
 		{	//IF ARRIVAL AT FLOOR
 			if (elev_get_floor_sensor_signal() != -1) {
-				evt_arrive_at_floor(elev, elev_get_floor_sensor_signal());
+				fsm_arrive_at_floor(elev, elev_get_floor_sensor_signal());
 			}
 		}
 	
 		{	//IF TIMER TIMEOUT
-			if (timer_funk() && g_timerFlag == 1) {
-				evt_timer_timeout(elev);
+			if (!timer_check() && g_timerFlag == 1) {
+				fsm_timer_timeout(elev);
 			}
 		}
 	}
 	return 0;
 }
 
-int init_elevator(Elevator* elev) {
+int fsm_init_elevator(Elevator* elev) {
 	elev->currentState = State_Init;
-	g_timerFlag = 0; 
-	
+	//timer_stop();
+	elev_set_motor_direction(DIRN_DOWN);
+
 	while(elev_get_floor_sensor_signal() == -1) {		//Kjører ned til nærmeste etasje
-		elev_set_motor_direction(DIRN_DOWN);
 	}
+	elev_set_motor_direction(DIRN_STOP);
+
 	elev->currentDir = DIRN_DOWN;
 	elev->currentFloor = elev_get_floor_sensor_signal();
+	elev_set_floor_indicator(elev->currentFloor);
 	
 	for (int i = 0; i < N_FLOORS; i++) {
-		for (int j = 0; j < N_BUTTONS); j++) {
+		for (int j = 0; j < N_BUTTONS; j++) {
 			elev->queue[i][j] = 0;
 		}
 	}
@@ -54,19 +57,19 @@ int init_elevator(Elevator* elev) {
 
 
 
-void evt_arrive_at_floor(Elevator* elev, int floor){		
+void fsm_arrive_at_floor(Elevator* elev, int floor){
+	elev_set_floor_indicator(floor);		
 	if (elev->currentFloor == floor) return; //hvis sensoren allerede har vært aktivert. altså Idle/samme etasje, etc..
 	elev->currentFloor = floor;
-	elev_set_floor_indicator(floor);
 	if (should_stop(*elev)) {			//stopper hvis heisen skal stoppe, stopper ikke hvis ikke.
 		open_doors(elev);							//NY STATE
 	}
 }
 
-void evt_request_btn_pressed(Elevator* elev , int floor, elev_button_type_t button){
-	switch (elev->Elev_State) {	
+void fsm_request_btn_pressed(Elevator* elev , int floor, elev_button_type_t button){
+	switch (elev->currentState) {	
 		case State_Idle:
-			q_add(floor, button, elev->queue);	//if request is at current floor, enter STATE_DoorsOpen
+			q_add(floor, button, elev);	//if request is at current floor, enter STATE_DoorsOpen
 			if(floor == elev->currentFloor && is_at_floor()) { 
 				open_doors(elev);
 			}
@@ -94,13 +97,15 @@ void evt_request_btn_pressed(Elevator* elev , int floor, elev_button_type_t butt
 	}												
 }
 
-void evt_stop_btn_pressed(Elevator* elev){
+void fsm_stop_btn_pressed(Elevator* elev){
 	elev->currentState = State_Stop;	
 	elev->currentDir = DIRN_STOP;
-	elev_motor_direction_t(0);
+	elev_set_motor_direction(0);
 	elev_set_stop_lamp(1);
 	q_clear(elev);
-	if (is_at_floor()) elev_set_door_open_lamp();
+	if (is_at_floor()){ 
+		elev_set_door_open_lamp(1);
+	}
 	
 	//busy wait while stop button pressed
 	while(elev_get_stop_signal()) {	
@@ -116,8 +121,8 @@ void evt_stop_btn_pressed(Elevator* elev){
 }
 
 
-void evt_timer_timeout(Elevator* elev){
-	g_timerFlag = 0;
+void fsm_timer_timeout(Elevator* elev){
+	timer_stop();
 	elev_set_door_open_lamp(0); //door lamp = 0
 	elev->currentState = State_Idle; 
 	
@@ -140,7 +145,7 @@ void open_doors(Elevator* elev) {
 	q_complete(elev);						//clears orders and turns off order lamps
 	
 	elev_set_door_open_lamp(1);
-	timer_start(); 							//starts 3sec timer
+	timer_start(3); 							//starts 3sec timer
 }
 
 elev_motor_direction_t set_direction(Elevator* elev) {
@@ -176,7 +181,7 @@ elev_motor_direction_t set_direction(Elevator* elev) {
 }
 
 bool is_at_floor() {
-	return if(elev_get_floor_sensor_signal() == -1);
+	return (elev_get_floor_sensor_signal() == -1);
 }
 
 bool is_btn_pressed(elev_button_type_t* button, int* floor) {
@@ -184,7 +189,7 @@ bool is_btn_pressed(elev_button_type_t* button, int* floor) {
 		for (int b = 0;  b < N_BUTTONS; b++) {
 			
 			if (!(b == 1 && f == 0) || !(b == 0 && f == 3)) { //checks if button exists
-				if elev_get_button_signal(b, f) {
+				if (elev_get_button_signal(b, f)) {
 					*button = b;
 					*floor = f;
 					return true;

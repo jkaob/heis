@@ -31,11 +31,12 @@ bool should_stop(Elevator elev) { 														//also add if there are no order
 			return true;
 	}
 	if (elev.currentDir == DIRN_UP) {
-			return (if elev.queue[elev.currentFloor][0]);	//if orders in same direction(up)
+			return (elev.queue[elev.currentFloor][0]);	//if orders in same direction(up)
 	}
 	else if (elev.currentDir == DIRN_DOWN) {
-			return (if elev.queue[elev.currentFloor][1]);	//if orders in same direction(down)
+			return (elev.queue[elev.currentFloor][1]);	//if orders in same direction(down)
 	}
+	return false;
 }
 
 void q_add(int floor, elev_button_type_t button, Elevator* elev) {

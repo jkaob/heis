@@ -1,6 +1,8 @@
-#ifndef timer_h
-#define timer_h
+#ifndef TIMER_H
+#define TIMER_H
 
+#include <time.h>
+#include <sys/time.h>
 #include <stdio.h>
 extern int g_timerFlag;
 // semigenerelt vil oppsettet til en timer bestå av:
@@ -8,10 +10,13 @@ extern int g_timerFlag;
     // aktiver timer-interrupt i timer-enheten
     // aktiver timerens interrupt i interrupt controller
     // lag ISR som bekrefter, tar aksjon og evt. oppdaterer timer-register
-double current_time();
-void timer_on(int sec);
-void timer_off();
-int timer_funk();
 
+double current_time();
+
+void timer_start(int dur);
+
+void timer_stop();
+
+int timer_check();
 
 #endif /* timer_h */

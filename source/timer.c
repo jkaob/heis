@@ -4,33 +4,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static int timerActive;
 static double endTime;
 int g_timerFlag;
 
 double current_time() {
     struct timeval t;
     gettimeofday(&t, NULL);
-    return (double)t.tv_sec * 100000 + (double)t.tv_usec; // -> ms ?
+    return (double)t.tv_sec + (double)t.tv_usec * 0.000001;
 }
 
-int timer_on(int dur) {
+void timer_start(int dur) { // starter når dørene åpnes
+    g_timerFlag = 1;
     endTime = dur + current_time();
-    timerActive = 1;
 }
 
-int timer_off() {
-    timerActive = 0;
+void timer_stop() {
+    g_timerFlag = 0;
 }
 
-int timer_funk() {
-    return (timerActive && time_current() > endTime);
-}
-
-
-int timer_start(int dur) { // starter når dørene åpnes
-	g_timerFlag = 1;
-	
-	endTime = dur + current_time();
-	return (current_time() > endTime);
+int timer_check() {
+    return (current_time() > endTime);
 }
