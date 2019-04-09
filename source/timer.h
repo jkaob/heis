@@ -2,6 +2,7 @@
 #define TIMER_H
 
 #include <time.h>
+#include <sys/time.h>
 #include <stdio.h>
 
 extern int g_timerFlag;
@@ -12,6 +13,7 @@ extern int g_timerFlag;
     // lag ISR som bekrefter, tar aksjon og evt. oppdaterer timer-register
 
 //double current_time();
+double timer_current_time();
 
 void timer_start(int dur);
 

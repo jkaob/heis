@@ -10,6 +10,7 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 // Number of signals and lamps on a per-floor basis (excl sensor)
 
@@ -134,10 +135,11 @@ int elev_get_button_signal(elev_button_type_t button, int floor) {
 }
 
 void elev_set_button_lamp(elev_button_type_t button, int floor, int value) {
-    assert(floor >= 0);
+    if (floor == -1) {
+        printf("OBS: FLOOR = -1");
+        return;
+    };
     assert(floor < N_FLOORS);
-    assert(!(button == BUTTON_CALL_UP && floor == N_FLOORS - 1));
-    assert(!(button == BUTTON_CALL_DOWN && floor == 0));
     assert(button == BUTTON_CALL_UP || button == BUTTON_CALL_DOWN || button == BUTTON_COMMAND);
 
     if (value)

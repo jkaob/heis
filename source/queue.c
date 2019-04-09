@@ -53,7 +53,7 @@ bool q_should_stop(Elevator elev) {
 void q_add(int floor, elev_button_type_t button, Elevator* elev) {
 	elev->queue[floor][button] = 1;					//add request
 	
-	if((button == 1 && floor == 0) || (button == 0 && floor == 3)) {
+	if (!((button == 1 && floor == 0) || (button == 0 && floor == 3))) {
 		elev_set_button_lamp(button, floor, 1);	 	//set lamp if lamp exists
 	}
 			
