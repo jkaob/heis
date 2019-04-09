@@ -141,6 +141,7 @@ void move(Elevator* elev) {
 }
 
 void open_doors(Elevator* elev) {
+	//printf("Prev State: %d \n New state %d \n", elev->currentState, State_DoorsOpen);
 	elev->currentState = State_DoorsOpen;	//changes state
 	elev_set_motor_direction(0);			//stops elevator
 	q_complete(elev);						//clears orders and turns off order lamps
@@ -150,35 +151,68 @@ void open_doors(Elevator* elev) {
 }
 
 elev_motor_direction_t set_direction(Elevator* elev) {
-	elev_motor_direction_t newDirection = DIRN_UP;
+	//elev_motor_direction_t newDirection = DIRN_STOP;
 	switch(elev->currentDir) {
 		case(DIRN_UP): 											//if current/last direction was UP
 			if (check_orders_above(*elev))  {
-				newDirection = DIRN_UP;
+				return DIRN_UP;
 				//elev->currentDir = DIRN_UP;
 			}
 			else if (check_orders_below(*elev)) {
-				newDirection = DIRN_DOWN;
+				return DIRN_DOWN;
 				//elev->currentDir = DIRN_DOWN;
 			}
-			break;
 	
-		case(DIRN_DOWN): 										//if current/last direction was DOWN
-
-		case(DIRN_STOP):										//if last direction was STOP. Same as down. Doesnt matter.
+		case(DIRN_DOWN): //if current/last direction was DOWN
 			if (check_orders_below(*elev)) {
-				newDirection = DIRN_DOWN;
+				return DIRN_DOWN;
 				//elev->currentDir = DIRN_DOWN;
 			}
 			else if (check_orders_above(*elev))  {
-				newDirection = DIRN_UP;
+				return DIRN_UP;
 				//elev->currentDir = DIRN_UP;
-			}
-			break;
+			}									
 
-		default: break;
-	}
-	return newDirection;
+		case(DIRN_STOP)://if elevator was stopped between floors
+			if (!is_at_floor()) {
+
+				if(elev->currentDir == DIRN_UP) { //implying elevator is ABOVE last floor
+					if (check_orders_above(*elev)) {
+						return DIRN_UP;
+					}
+
+					else {										
+						for (int i = 0; i < N_BUTTONS; i++) {		//Check orders at "current" floor
+							if (elev->queue[elev->currentFloor][i]) {
+								elev->currentFloor = -1;			//sets currentFloor to -1 , for activating arriveAtFloor() trigger
+								return DIRN_DOWN;
+							}
+						}
+					}
+				}
+
+				else if(elev->currentDir == DIRN_DOWN) { //implying elevator is below last floor
+					if (check_orders_below(*elev)) {
+						return DIRN_DOWN;
+					}
+
+					else {										
+						for (int i = 0; i < N_BUTTONS; i++) {		//Check orders at "current" floor
+							if (elev->queue[elev->currentFloor][i]) {
+								elev->currentFloor = -1;
+								return DIRN_UP;
+							}
+						}
+					}
+				}
+			}
+			printf("herhrh");
+			return DIRN_STOP;
+
+			
+		default: 
+			return DIRN_STOP;
+		}
 }
 
 bool is_at_floor() {

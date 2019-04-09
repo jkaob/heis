@@ -16,7 +16,7 @@ bool check_orders_above(Elevator elev){
 
 bool check_orders_below(Elevator elev) {
 	if (elev.currentFloor == 0) return 0;
-	for (int i = 0; i < elev.currentFloor; i++) {		//check floors below current
+	for (int i = 0; i < elev.currentFloor ; i++) {		//check floors below current
 		for (int j = 0; j < N_BUTTONS; j++) {
 			if (elev.queue[i][j] == 1 ) return 1;		//orders below
 		}
