@@ -30,16 +30,23 @@ bool should_stop(Elevator elev) { 														//also add if there are no order
 	if (elev.queue[elev.currentFloor][2]) {		//If passenger wants to get off
 			return true;
 	}
-	if (elev.currentDir == DIRN_UP) {
-			return (elev.queue[elev.currentFloor][0]);	//if orders in same direction(up)
-	}
-	else if (elev.currentDir == DIRN_DOWN) {
-			return (elev.queue[elev.currentFloor][1]);	//if orders in same direction(down)
-	}
-	else if (!check_orders_above(elev) && !check_orders_below(elev)) {
-		return true;
+	switch(elev.currentDir) {
+		case DIRN_UP:
+			if (elev.queue[elev.currentFloor][0]) return true; //if orders in same direction(up)
+			if (elev.queue[elev.currentFloor][1] && !check_orders_above(elev)) return true;	//if order in opposite direction(down) and no orders above
+			break;
+
+		case DIRN_STOP:
+		case DIRN_DOWN:
+			if (elev.queue[elev.currentFloor][1]) return true; //if orders in same direction(down)
+			if (elev.queue[elev.currentFloor][0] && !check_orders_below(elev)) return true; //if order in opposite direction(up) and no orders below
+			break;
 	}
 	return false;
+	//else if (!check_orders_above(elev) && !check_orders_below(elev)) {
+	//	return true;
+	//}
+	
 }
 
 void q_add(int floor, elev_button_type_t button, Elevator* elev) {

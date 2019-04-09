@@ -69,8 +69,8 @@ void fsm_arrive_at_floor(Elevator* elev, int floor){
 void fsm_request_btn_pressed(Elevator* elev , int floor, elev_button_type_t button){
 	switch (elev->currentState) {	
 		case State_Idle:
-			q_add(floor, button, elev);	//if request is at current floor, enter STATE_DoorsOpen
-			if(floor == elev->currentFloor && is_at_floor()) { 
+			q_add(floor, button, elev);	
+			if(floor == elev->currentFloor && is_at_floor()) { //if request is at current floor, enter STATE_DoorsOpen
 				open_doors(elev);
 			}
 			else {
@@ -99,7 +99,7 @@ void fsm_request_btn_pressed(Elevator* elev , int floor, elev_button_type_t butt
 
 void fsm_stop_btn_pressed(Elevator* elev){
 	elev->currentState = State_Stop;	
-	elev->currentDir = DIRN_STOP;
+	//elev->currentDir = DIRN_STOP;
 	elev_set_motor_direction(0);
 	elev_set_stop_lamp(1);
 	q_clear(elev);
