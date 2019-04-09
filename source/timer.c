@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 static double endTime;
-int g_timerFlag;
+int g_timerFlag = 0;
 
 double current_time() {
     struct timeval t;
@@ -15,7 +15,7 @@ double current_time() {
 
 void timer_start(int dur) { // starter når dørene åpnes
     g_timerFlag = 1;
-    endTime = dur + current_time();
+    endTime = dur + time(NULL);
 }
 
 void timer_stop() {

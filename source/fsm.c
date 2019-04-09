@@ -25,7 +25,7 @@ int fsm_main_loop(Elevator* elev) {
 		}
 	
 		{	//IF TIMER TIMEOUT
-			if (!timer_check() && g_timerFlag == 1) {
+			if (timer_check() && g_timerFlag == 1) {
 				fsm_timer_timeout(elev);
 			}
 		}
@@ -35,7 +35,7 @@ int fsm_main_loop(Elevator* elev) {
 
 int fsm_init_elevator(Elevator* elev) {
 	elev->currentState = State_Init;
-	//timer_stop();
+	g_timerFlag = 0;
 	elev_set_motor_direction(DIRN_DOWN);
 
 	while(elev_get_floor_sensor_signal() == -1) {		//Kjører ned til nærmeste etasje
@@ -44,7 +44,7 @@ int fsm_init_elevator(Elevator* elev) {
 
 	elev->currentDir = DIRN_DOWN;
 	elev->currentFloor = elev_get_floor_sensor_signal();
-	elev_set_floor_indicator(elev->currentFloor);
+	elev_set_floor_indicator(elev_get_floor_sensor_signal());
 	
 	for (int i = 0; i < N_FLOORS; i++) {
 		for (int j = 0; j < N_BUTTONS; j++) {
@@ -59,10 +59,10 @@ int fsm_init_elevator(Elevator* elev) {
 
 void fsm_arrive_at_floor(Elevator* elev, int floor){
 	elev_set_floor_indicator(floor);		
-	if (elev->currentFloor == floor) return; //hvis sensoren allerede har vært aktivert. altså Idle/samme etasje, etc..
+	if (elev->currentFloor == floor) return; 	//hvis sensoren allerede har vært aktivert. altså Idle/samme etasje, etc..
 	elev->currentFloor = floor;
-	if (should_stop(*elev)) {			//stopper hvis heisen skal stoppe, stopper ikke hvis ikke.
-		open_doors(elev);							//NY STATE
+	if (should_stop(*elev)) {					//stopper hvis heisen skal stoppe, stopper ikke hvis ikke.
+		open_doors(elev);						//NY STATE
 	}
 }
 
@@ -112,6 +112,7 @@ void fsm_stop_btn_pressed(Elevator* elev){
 	}
 	
 	//stop button released
+	elev_set_stop_lamp(0);
 	if (is_at_floor()) {
 		open_doors(elev);
 	}
@@ -181,14 +182,14 @@ elev_motor_direction_t set_direction(Elevator* elev) {
 }
 
 bool is_at_floor() {
-	return (elev_get_floor_sensor_signal() == -1);
+	return (elev_get_floor_sensor_signal() != -1);
 }
 
 bool is_btn_pressed(elev_button_type_t* button, int* floor) {
 	for (int f= 0; f < N_FLOORS; f++) {
 		for (int b = 0;  b < N_BUTTONS; b++) {
 			
-			if (!(b == 1 && f == 0) || !(b == 0 && f == 3)) { //checks if button exists
+			if (!((b == 1 && f == 0) || (b == 0 && f == 3))) { //checks if button exists:   B=0: button call up, B=1: call down, B=2: command
 				if (elev_get_button_signal(b, f)) {
 					*button = b;
 					*floor = f;

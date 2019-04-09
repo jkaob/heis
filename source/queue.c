@@ -36,11 +36,14 @@ bool should_stop(Elevator elev) { 														//also add if there are no order
 	else if (elev.currentDir == DIRN_DOWN) {
 			return (elev.queue[elev.currentFloor][1]);	//if orders in same direction(down)
 	}
+	else if (!check_orders_above(elev) && !check_orders_below(elev)) {
+		return true;
+	}
 	return false;
 }
 
 void q_add(int floor, elev_button_type_t button, Elevator* elev) {
-	elev->queue[floor][button] = 1;						//add  order
+	elev->queue[floor][button] = 1;					//add  order
 	elev_set_button_lamp(button, floor, 1);			//set lamp
 	
 }
@@ -50,7 +53,9 @@ void q_complete(Elevator* elev) {
 	for (int i = 0; i < N_BUTTONS; i++) {
 		elev->queue[floor][i] = 0;					//clear orders at current floor
 		
-		elev_set_button_lamp(i, floor, 0); 	//turn off lamp
+		if (!((i == 1 && floor == 0) || (i == 0 && floor == 3))) {
+			elev_set_button_lamp(i, floor, 0); 	//turn off lamp
+		}
 	}	
 }
 
@@ -59,7 +64,7 @@ void q_clear(Elevator* elev) {
 		for (int j = 0; j < N_BUTTONS; j++) {
 			elev->queue[i][j] = 0;						//clear queue
 			
-			if (!(j == 1 && i == 0) || !(j == 0 && i == 3)) { //checks if lamp exists
+			if (!((j == 1 && i == 0) || (j == 0 && i == 3))) { //checks if lamp exists
 			elev_set_button_lamp(j, i, 0); 			//clear all order lamps : j = btn, i = floor
 			}
 		}

@@ -11,7 +11,7 @@ int main() {
         return 1;
     }
     //printf("Press STOP button to stop elevator and exit program.\n");
-    elev_set_motor_direction(DIRN_UP);
+    //elev_set_motor_direction(DIRN_UP);
 	
 	//int a = 100000;
 	
