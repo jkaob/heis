@@ -14,7 +14,6 @@ int main() {
     //elev_set_motor_direction(DIRN_UP);
 	
 	//int a = 100000;
-	
 	Elevator e;
 	fsm_init_elevator(&e);
 	fsm_main_loop(&e);

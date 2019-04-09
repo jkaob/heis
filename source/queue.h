@@ -10,19 +10,19 @@
   Returns true if there are orders above current floor in the queue. 
   @param elev System structure
 */
-bool check_orders_above(Elevator elev);
+bool q_check_orders_above(Elevator elev);
 
 /**
   Returns true if there are orders below current floor in the queue. 
   @param elev System structure
 */
-bool check_orders_below(Elevator elev); 
+bool q_check_orders_below(Elevator elev); 
 
 /**
   Returns true if there are orders in the same direction or if passenger wants to get off at current floor. 
   @param elev System structure
 */	
-bool should_stop(Elevator elev);
+bool q_should_stop(Elevator elev);
 
 
 /**
