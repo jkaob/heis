@@ -28,57 +28,70 @@ bool q_check_orders_below(Elevator elev) {
 
 bool q_should_stop(Elevator elev) {
 		//If passenger wants to get off
-	if (elev.queue[elev.currentFloor][2]) return true;
+	if (elev.queue[elev.currentFloor][2]) 
+		return true;
+	
 	switch(elev.currentDir) {
 		case DIRN_UP:
 		//If orders in same direction(up)
-			if (elev.queue[elev.currentFloor][0]) return true;
+			if (elev.queue[elev.currentFloor][0]) 
+				return true;
 		//If order in opposite direction(down) and no orders above 
-			if (elev.queue[elev.currentFloor][1] && !q_check_orders_above(elev)) return true;	
+			if (elev.queue[elev.currentFloor][1] && !q_check_orders_above(elev)) 
+				return true;	
 			break;
 
 		case DIRN_STOP:
 		case DIRN_DOWN:
 		//If orders in same direction(down)
-			if (elev.queue[elev.currentFloor][1]) return true;
+			if (elev.queue[elev.currentFloor][1]) 
+				return true;
 		//If order in opposite direction(up) and no orders below 
-			if (elev.queue[elev.currentFloor][0] && !q_check_orders_below(elev)) return true; 
+			if (elev.queue[elev.currentFloor][0] && !q_check_orders_below(elev)) 
+				return true; 
 			break;
 	}
 		//If there are no other orders in the system
-	if (!q_check_orders_below(elev) && !q_check_orders_above(elev)) return true;
+	if (!q_check_orders_below(elev) && !q_check_orders_above(elev)) 
+		return true;
+	
+		//Else, return false
 	return false;	
 }
 
 void q_add(int floor, elev_button_type_t button, Elevator* elev) {
-	elev->queue[floor][button] = 1;					//add request
+	//Add request to queue-matrix
+	elev->queue[floor][button] = 1;
 	
-	if (!((button == 1 && floor == 0) || (button == 0 && floor == 3))) {
-		elev_set_button_lamp(button, floor, 1);	 	//set lamp if lamp exists
-	}
-			
+	//Set lamp if lamp exists
+	if (!((button == 1 && floor == 0) || (button == 0 && floor == 3)))
+		elev_set_button_lamp(button, floor, 1);	
 	
 }
 
 void q_complete(Elevator* elev) {
 	int f = elev->currentFloor;
 	for (int b = 0; b < N_BUTTONS; b++) {
-		elev->queue[f][b] = 0;					//clear requests at current floor
 		
-		if (!((b == 1 && f == 0) || (b == 0 && f == 3))) {
-			elev_set_button_lamp(b, f, 0); 	//turn off lamp if lamp exists
-		}
+		//clear requests at current floor
+		elev->queue[f][b] = 0;					
+		
+		//turn off lamp if lamp exists
+		if (!((b == 1 && f == 0) || (b == 0 && f == 3)))
+			elev_set_button_lamp(b, f, 0); 	
 	}	
 }
 
 void q_clear(Elevator* elev) {
 	for (int f = 0; f < N_FLOORS; f++) {
 		for (int b = 0; b < N_BUTTONS; b++) {
-			elev->queue[f][b] = 0;						//clear queue
 			
-			if (!((b == 1 && f == 0) || (b == 0 && f == 3))) { //checks if lamp exists
-			elev_set_button_lamp(b, f, 0); 			//clear all request lamps : b = btn, f = floor
-			}
+			//clears the entire queue-matrix
+			elev->queue[f][b] = 0;
+			
+			//disables all the requests lamps, if they exist
+			if (!((b == 1 && f == 0) || (b == 0 && f == 3)))
+				elev_set_button_lamp(b, f, 0);
 		}
 	}
 }

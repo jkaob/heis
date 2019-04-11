@@ -56,21 +56,22 @@ void fsm_timer_timeout(Elevator* elev);
 
 /**
   Enter Move-state. 
-  @param elev System structure pointer
+  @param: elev System structure pointer
 */
 void move(Elevator* elev); //Enter STATE_Move
 
 /**
   Enter DoorsOpen-state. 
-  @param elev System structure pointer
+  @param: elev System structure pointer
 */
 void open_doors(Elevator* elev); //Enter STATE_DoorsOpen
 
 /**
-  Sets new direction depending on current direction and queue. 
-  @param elev System structure pointer
+  Gets new direction depending on current direction and queue. 
+  @param: elev System structure pointer
+  @return: new direction
 */
-elev_motor_direction_t set_direction(Elevator* elev);
+elev_motor_direction_t get_direction(Elevator* elev);
 
 
 /**
@@ -80,8 +81,8 @@ bool is_at_floor();
 
 /**
   Returns true if any request button is pressed. Changes param pointer values to button values.
-  @param button Button-value pointer
-  @param floor Floor-value pointer
+  @param: button Button-value pointer
+  @param: floor Floor-value pointer
 */
 bool is_btn_pressed(elev_button_type_t* button, int* floor);
 

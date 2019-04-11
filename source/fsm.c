@@ -62,15 +62,19 @@ int fsm_init_elevator(Elevator* elev) {
 
 
 void fsm_arrive_at_floor(Elevator* elev, int floor){
-	if(floor!= -1) 
-		elev_set_floor_indicator(floor);
-	if (elev->currentFloor == floor && !g_emergencyFlag) return; 	//hvis sensoren allerede har vært aktivert.
+	//if floor sensor is already activated - Elevator is idle or waiting.
+	if (elev->currentFloor == floor && !g_emergencyFlag) 
+		return; 	
 	g_emergencyFlag = 0;
-	if (floor!= -1)
+	
+	//in case of bug or timer fault
+	if (floor!= -1) {	
 		elev->currentFloor = floor;
-	if (q_should_stop(*elev)) {					//stopper hvis heisen skal stoppe, stopper ikke hvis ikke.
-		open_doors(elev);						//NY STATE
+		elev_set_floor_indicator(floor);
 	}
+	//enter State_DoorsOpen if supposed to
+	if (q_should_stop(*elev))
+		open_doors(elev);
 }
 
 void fsm_request_btn_pressed(Elevator* elev , int floor, elev_button_type_t button){
@@ -80,13 +84,11 @@ void fsm_request_btn_pressed(Elevator* elev , int floor, elev_button_type_t butt
 			q_add(floor, button, elev);	//add to queue
 
 			//if request is at current floor, enter STATE_DoorsOpen
-			if(floor == elev->currentFloor && is_at_floor()) { 
+			if(floor == elev->currentFloor && is_at_floor())
 				open_doors(elev);
-			}
 			//Else, enter STATE_Move
-			else {
+			else 
 				move(elev);		
-			}
 			break;
 			
 		case State_Move: 
@@ -96,13 +98,11 @@ void fsm_request_btn_pressed(Elevator* elev , int floor, elev_button_type_t butt
 			
 		case State_DoorsOpen: 	
 			//if request is at current floor, re-enter STATE_DoorsOpen. 
-			if(floor == elev->currentFloor) { 		
+			if(floor == elev->currentFloor)	
 				open_doors(elev);
-			}
 			//else add to queue
-			else {				
+			else			
 				q_add(floor, button, elev);	 
-			}
 			break;
 		
 		case State_Init:
@@ -112,15 +112,16 @@ void fsm_request_btn_pressed(Elevator* elev , int floor, elev_button_type_t butt
 }
 
 void fsm_stop_btn_pressed(Elevator* elev){
-	printf("%s","Stop is pressed");
+	//Stop elevator and change state
 	elev->currentState = State_Stop;
 	elev_set_motor_direction(0);
 	elev_set_stop_lamp(1);
 	q_clear(elev);
 	if (is_at_floor())
 		elev_set_door_open_lamp(1);
-
-	if (!g_emergencyFlag) {	//If this is the first time activating STOP, save last direction and floor
+	
+	//If this is the first time activating STOP between floors, save last direction and floor
+	if (!g_emergencyFlag) {	
 		elev->emergencyDir = elev->currentDir;
 		elev->emergencyFloor = elev->currentFloor;
 		g_emergencyFlag = 1;	//EmergencyFlag is activated, activate floor sensor to reset
@@ -136,8 +137,6 @@ void fsm_stop_btn_pressed(Elevator* elev){
 		open_doors(elev);
 	else 
 		elev->currentState = State_Idle;
-		int a = elev->emergencyDir;
-		printf(" emergencyDir = %d \n", a);
 }
 
 
@@ -146,17 +145,17 @@ void fsm_timer_timeout(Elevator* elev){
 	elev_set_door_open_lamp(0); //door lamp = 0
 	elev->currentState = State_Idle; 
 	
-	if (q_check_orders_above(*elev) || q_check_orders_below(*elev)) {		//checks if elevator should stay idle or move
+	//checks if elevator should stay idle or move
+	if (q_check_orders_above(*elev) || q_check_orders_below(*elev))	
 		move(elev);
-	}
 } 
 
 ///////////////////////////////////////////////
 
 void move(Elevator* elev) {
 	elev->currentState = State_Move;
-	elev->currentDir = set_direction(elev); 
-	elev_set_motor_direction(elev->currentDir); //start motor
+	elev->currentDir = get_direction(elev); 
+	elev_set_motor_direction(elev->currentDir);
 }
 
 void open_doors(Elevator* elev) {
@@ -169,25 +168,23 @@ void open_doors(Elevator* elev) {
 	timer_start(3); 							//starts 3sec timer
 }
 
-elev_motor_direction_t set_direction(Elevator* elev) {
+elev_motor_direction_t get_direction(Elevator* elev) {
 	
 	switch(elev->currentDir) {
 		//if current/last direction was UP
 		case(DIRN_UP): 					
-			if (q_check_orders_above(*elev))  {
+			if (q_check_orders_above(*elev)) 
 				return DIRN_UP;
-			}
-			else if (q_check_orders_below(*elev)) {
+			else if (q_check_orders_below(*elev))
 				return DIRN_DOWN;
-			}
+			
 		//if current/last direction was DOWN
 		case(DIRN_DOWN): 				
-			if (q_check_orders_below(*elev)) {
+			if (q_check_orders_below(*elev))
 				return DIRN_DOWN;
-			}
-			else if (q_check_orders_above(*elev))  {
+			else if (q_check_orders_above(*elev)) 
 				return DIRN_UP;
-			}									
+			
 		//if current/last direction was STOP, meaning Stop was pushed
 		case(DIRN_STOP): 
 
@@ -203,11 +200,8 @@ elev_motor_direction_t set_direction(Elevator* elev) {
 						return DIRN_UP;
 
 					for (int i = 0; i < N_BUTTONS; i++) {
-						if (elev->queue[elev->currentFloor][i]) {
-							printf("%s","Elev is going down");
-						
+						if (elev->queue[elev->currentFloor][i])
 							return DIRN_DOWN;
-						}
 					}
 				}
 				//if last direction was DOWN (elevator is below current floor)
@@ -218,28 +212,21 @@ elev_motor_direction_t set_direction(Elevator* elev) {
 						return DIRN_DOWN;
 
 					for (int i = 0; i < N_BUTTONS; i++) {
-						if (elev->queue[elev->currentFloor][i]) {
-							printf("%s","Elev is going up");
-						
+						if (elev->queue[elev->currentFloor][i])
 							return DIRN_UP;
-						}
 					}
-
 				}
 			}
-			printf("%s","elevator is at floor\n");
-			if(q_check_orders_above(*elev)) {
-				printf("no går det oppover");
+			
+			if(q_check_orders_above(*elev))
 				return DIRN_UP;
-			}
-			if(q_check_orders_below(*elev)) {
-				printf("no går det nedover");
+			
+			if(q_check_orders_below(*elev))
 				return DIRN_DOWN;
-			}
+			
 			return DIRN_STOP;
 			
 		default: 
-			printf("return STP\n");
 			return DIRN_STOP;
 		}
 }
