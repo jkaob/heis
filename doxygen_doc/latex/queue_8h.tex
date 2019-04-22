@@ -1,0 +1,160 @@
+\hypertarget{queue_8h}{}\section{source/queue.h File Reference}
+\label{queue_8h}\index{source/queue.h@{source/queue.h}}
+
+
+Queue system for elevator. Contains logic for finite state machine.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}state.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{queue_8h_a2e96e663807d770240910bcf15c78ed2}{q\+\_\+check\+\_\+orders\+\_\+above}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} elev)
+\begin{DoxyCompactList}\small\item\em Iterates the queue, and checks if there are orders above current floor. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{queue_8h_a31991860821d5e1efe086c8d524df923}{q\+\_\+check\+\_\+orders\+\_\+below}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} elev)
+\begin{DoxyCompactList}\small\item\em Iterates the queue, and checks if there are orders below current floor. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{queue_8h_aa1eee30ad347625340dfe630b40db16d}{q\+\_\+should\+\_\+stop}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} elev)
+\begin{DoxyCompactList}\small\item\em Returns true if there are orders in the same direction or if passenger wants to get off at current floor. Also if there are no further orders in the queue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{queue_8h_a2af53998b9cc7db0a90c8d024ccaf606}{q\+\_\+add}} (int floor, elev\+\_\+button\+\_\+type\+\_\+t button, \mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$elev)
+\begin{DoxyCompactList}\small\item\em Adds order to queue and sets order lamp to 1. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{queue_8h_ab8088760b5ba0b58d08ac5a01af7144e}{q\+\_\+complete}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$elev)
+\begin{DoxyCompactList}\small\item\em Removes orders at current floor when completed and sets the lights to 0. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{queue_8h_aaec3e2258e32716f3541beb81de1ed56}{q\+\_\+clear}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$elev)
+\begin{DoxyCompactList}\small\item\em Clears the entire queue and sets all order lamps to 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Queue system for elevator. Contains logic for finite state machine. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{queue_8h_a2af53998b9cc7db0a90c8d024ccaf606}\label{queue_8h_a2af53998b9cc7db0a90c8d024ccaf606}} 
+\index{queue.h@{queue.h}!q\_add@{q\_add}}
+\index{q\_add@{q\_add}!queue.h@{queue.h}}
+\subsubsection{\texorpdfstring{q\_add()}{q\_add()}}
+{\footnotesize\ttfamily void q\+\_\+add (\begin{DoxyParamCaption}\item[{int}]{floor,  }\item[{elev\+\_\+button\+\_\+type\+\_\+t}]{button,  }\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$}]{elev }\end{DoxyParamCaption})}
+
+
+
+Adds order to queue and sets order lamp to 1. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em floor} & Floor value from input \\
+\hline
+{\em button} & Button value from input \\
+\hline
+{\em elev} & System structure pointer \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 62 of file queue.\+c.
+
+\mbox{\Hypertarget{queue_8h_a2e96e663807d770240910bcf15c78ed2}\label{queue_8h_a2e96e663807d770240910bcf15c78ed2}} 
+\index{queue.h@{queue.h}!q\_check\_orders\_above@{q\_check\_orders\_above}}
+\index{q\_check\_orders\_above@{q\_check\_orders\_above}!queue.h@{queue.h}}
+\subsubsection{\texorpdfstring{q\_check\_orders\_above()}{q\_check\_orders\_above()}}
+{\footnotesize\ttfamily bool q\+\_\+check\+\_\+orders\+\_\+above (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}}}]{elev }\end{DoxyParamCaption})}
+
+
+
+Iterates the queue, and checks if there are orders above current floor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if {\ttfamily elev.\+queue} contains orders above, 0 if not 
+\end{DoxyReturn}
+
+
+Definition at line 6 of file queue.\+c.
+
+\mbox{\Hypertarget{queue_8h_a31991860821d5e1efe086c8d524df923}\label{queue_8h_a31991860821d5e1efe086c8d524df923}} 
+\index{queue.h@{queue.h}!q\_check\_orders\_below@{q\_check\_orders\_below}}
+\index{q\_check\_orders\_below@{q\_check\_orders\_below}!queue.h@{queue.h}}
+\subsubsection{\texorpdfstring{q\_check\_orders\_below()}{q\_check\_orders\_below()}}
+{\footnotesize\ttfamily bool q\+\_\+check\+\_\+orders\+\_\+below (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}}}]{elev }\end{DoxyParamCaption})}
+
+
+
+Iterates the queue, and checks if there are orders below current floor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if {\ttfamily elev.\+queue} contains orders below, 0 if not 
+\end{DoxyReturn}
+
+
+Definition at line 17 of file queue.\+c.
+
+\mbox{\Hypertarget{queue_8h_aaec3e2258e32716f3541beb81de1ed56}\label{queue_8h_aaec3e2258e32716f3541beb81de1ed56}} 
+\index{queue.h@{queue.h}!q\_clear@{q\_clear}}
+\index{q\_clear@{q\_clear}!queue.h@{queue.h}}
+\subsubsection{\texorpdfstring{q\_clear()}{q\_clear()}}
+{\footnotesize\ttfamily void q\+\_\+clear (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$}]{elev }\end{DoxyParamCaption})}
+
+
+
+Clears the entire queue and sets all order lamps to 0. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure pointer \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 85 of file queue.\+c.
+
+\mbox{\Hypertarget{queue_8h_ab8088760b5ba0b58d08ac5a01af7144e}\label{queue_8h_ab8088760b5ba0b58d08ac5a01af7144e}} 
+\index{queue.h@{queue.h}!q\_complete@{q\_complete}}
+\index{q\_complete@{q\_complete}!queue.h@{queue.h}}
+\subsubsection{\texorpdfstring{q\_complete()}{q\_complete()}}
+{\footnotesize\ttfamily void q\+\_\+complete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$}]{elev }\end{DoxyParamCaption})}
+
+
+
+Removes orders at current floor when completed and sets the lights to 0. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure pointer \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 72 of file queue.\+c.
+
+\mbox{\Hypertarget{queue_8h_aa1eee30ad347625340dfe630b40db16d}\label{queue_8h_aa1eee30ad347625340dfe630b40db16d}} 
+\index{queue.h@{queue.h}!q\_should\_stop@{q\_should\_stop}}
+\index{q\_should\_stop@{q\_should\_stop}!queue.h@{queue.h}}
+\subsubsection{\texorpdfstring{q\_should\_stop()}{q\_should\_stop()}}
+{\footnotesize\ttfamily bool q\+\_\+should\+\_\+stop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}}}]{elev }\end{DoxyParamCaption})}
+
+
+
+Returns true if there are orders in the same direction or if passenger wants to get off at current floor. Also if there are no further orders in the queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if elevator should stop, 0 if not. 
+\end{DoxyReturn}
+
+
+Definition at line 29 of file queue.\+c.
+

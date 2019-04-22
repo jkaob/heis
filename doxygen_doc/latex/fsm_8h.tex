@@ -1,0 +1,269 @@
+\hypertarget{fsm_8h}{}\section{source/fsm.h File Reference}
+\label{fsm_8h}\index{source/fsm.h@{source/fsm.h}}
+
+
+Final State Machine for system, containing trigger events, state transitions and main loop.  
+
+
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}queue.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}state.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}timer.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{fsm_8h_adc0ce09809b99f460acc793aa47e33ff}{fsm\+\_\+main\+\_\+loop}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$elev)
+\begin{DoxyCompactList}\small\item\em Main loop which contains the entire system logic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{fsm_8h_a84de27b9833d4216a1f47c9cec4a1711}{fsm\+\_\+init\+\_\+elevator}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$elev)
+\begin{DoxyCompactList}\small\item\em Initializing elevator system at start. Enters state {\ttfamily Idle} after initializing. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{fsm_8h_a1d9544e19109032702b02c9331db418d}{fsm\+\_\+arrive\+\_\+at\+\_\+floor}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$elev, int floor)
+\begin{DoxyCompactList}\small\item\em Event triggered by active floor sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{fsm_8h_a3381e73362b1c8480e54a67d0d5dc200}{fsm\+\_\+request\+\_\+btn\+\_\+pressed}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$elev, int floor, elev\+\_\+button\+\_\+type\+\_\+t button)
+\begin{DoxyCompactList}\small\item\em Event triggered by button inputs. Changes elevator state to {\ttfamily Move} or {\ttfamily Doors\+\_\+\+Open} depending on current state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{fsm_8h_a760c7e760ec9134df442f0504a917e9e}{fsm\+\_\+stop\+\_\+btn\+\_\+pressed}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$elev)
+\begin{DoxyCompactList}\small\item\em Event triggered by stop button input. Enter state {\ttfamily Stop}, stops polling buttons, clears queue and sets stop button lamp. Busy wait until button is released. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{fsm_8h_a8c26e51e3d437770dd715c01e288d1db}{fsm\+\_\+timer\+\_\+timeout}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$elev)
+\begin{DoxyCompactList}\small\item\em Event triggered on timer timeout. Stops timer, closes the door, enters state Idle if no further orders in queue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{fsm_8h_ade8d2d046dca5b61c4265ba14eebf44e}{fsm\+\_\+move}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$elev)
+\begin{DoxyCompactList}\small\item\em Enter state {\ttfamily Move} . Gets new direction and starts motor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{fsm_8h_a9994c1937638cecfc7643916ca193fe8}{fsm\+\_\+open\+\_\+doors}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$elev)
+\begin{DoxyCompactList}\small\item\em Enter state {\ttfamily Doors\+\_\+\+Open} . Stops engine, open doors, start timer and clear requests at current floor. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{fsm_8h_a9d3e1b9f22d74819532fcef39960c9f8}{fsm\+\_\+is\+\_\+at\+\_\+floor}} ()
+\begin{DoxyCompactList}\small\item\em Returns {\ttfamily true} if floor sensor is active. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{fsm_8h_a3af84a536ecf351833055f83328527c2}{fsm\+\_\+is\+\_\+btn\+\_\+pressed}} (elev\+\_\+button\+\_\+type\+\_\+t $\ast$button, int $\ast$floor)
+\begin{DoxyCompactList}\small\item\em Checks if any request button is pressed, and also returns which one if it is pressed (by reference). \end{DoxyCompactList}\item 
+elev\+\_\+motor\+\_\+direction\+\_\+t \mbox{\hyperlink{fsm_8h_af1361b15228c0d17a1f9eda4ef46f542}{fsm\+\_\+get\+\_\+direction}} (\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$elev)
+\begin{DoxyCompactList}\small\item\em Gets new motor direction depending on current direction and queue. If stop was pressed, also considers last direction before the stop button was pressed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Final State Machine for system, containing trigger events, state transitions and main loop. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{fsm_8h_a1d9544e19109032702b02c9331db418d}\label{fsm_8h_a1d9544e19109032702b02c9331db418d}} 
+\index{fsm.h@{fsm.h}!fsm\_arrive\_at\_floor@{fsm\_arrive\_at\_floor}}
+\index{fsm\_arrive\_at\_floor@{fsm\_arrive\_at\_floor}!fsm.h@{fsm.h}}
+\subsubsection{\texorpdfstring{fsm\_arrive\_at\_floor()}{fsm\_arrive\_at\_floor()}}
+{\footnotesize\ttfamily void fsm\+\_\+arrive\+\_\+at\+\_\+floor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$}]{elev,  }\item[{int}]{floor }\end{DoxyParamCaption})}
+
+
+
+Event triggered by active floor sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure pointer \\
+\hline
+{\em floor} & Floor value from sensor signal \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 68 of file fsm.\+c.
+
+\mbox{\Hypertarget{fsm_8h_af1361b15228c0d17a1f9eda4ef46f542}\label{fsm_8h_af1361b15228c0d17a1f9eda4ef46f542}} 
+\index{fsm.h@{fsm.h}!fsm\_get\_direction@{fsm\_get\_direction}}
+\index{fsm\_get\_direction@{fsm\_get\_direction}!fsm.h@{fsm.h}}
+\subsubsection{\texorpdfstring{fsm\_get\_direction()}{fsm\_get\_direction()}}
+{\footnotesize\ttfamily elev\+\_\+motor\+\_\+direction\+\_\+t fsm\+\_\+get\+\_\+direction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$}]{elev }\end{DoxyParamCaption})}
+
+
+
+Gets new motor direction depending on current direction and queue. If stop was pressed, also considers last direction before the stop button was pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new direction for elevator 
+\end{DoxyReturn}
+
+
+Definition at line 199 of file fsm.\+c.
+
+\mbox{\Hypertarget{fsm_8h_a84de27b9833d4216a1f47c9cec4a1711}\label{fsm_8h_a84de27b9833d4216a1f47c9cec4a1711}} 
+\index{fsm.h@{fsm.h}!fsm\_init\_elevator@{fsm\_init\_elevator}}
+\index{fsm\_init\_elevator@{fsm\_init\_elevator}!fsm.h@{fsm.h}}
+\subsubsection{\texorpdfstring{fsm\_init\_elevator()}{fsm\_init\_elevator()}}
+{\footnotesize\ttfamily void fsm\+\_\+init\+\_\+elevator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$}]{elev }\end{DoxyParamCaption})}
+
+
+
+Initializing elevator system at start. Enters state {\ttfamily Idle} after initializing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure pointer \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 39 of file fsm.\+c.
+
+\mbox{\Hypertarget{fsm_8h_a9d3e1b9f22d74819532fcef39960c9f8}\label{fsm_8h_a9d3e1b9f22d74819532fcef39960c9f8}} 
+\index{fsm.h@{fsm.h}!fsm\_is\_at\_floor@{fsm\_is\_at\_floor}}
+\index{fsm\_is\_at\_floor@{fsm\_is\_at\_floor}!fsm.h@{fsm.h}}
+\subsubsection{\texorpdfstring{fsm\_is\_at\_floor()}{fsm\_is\_at\_floor()}}
+{\footnotesize\ttfamily bool fsm\+\_\+is\+\_\+at\+\_\+floor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns {\ttfamily true} if floor sensor is active. 
+
+\begin{DoxyReturn}{Returns}
+1 if elevator is at floor, 0 if not 
+\end{DoxyReturn}
+
+
+Definition at line 176 of file fsm.\+c.
+
+\mbox{\Hypertarget{fsm_8h_a3af84a536ecf351833055f83328527c2}\label{fsm_8h_a3af84a536ecf351833055f83328527c2}} 
+\index{fsm.h@{fsm.h}!fsm\_is\_btn\_pressed@{fsm\_is\_btn\_pressed}}
+\index{fsm\_is\_btn\_pressed@{fsm\_is\_btn\_pressed}!fsm.h@{fsm.h}}
+\subsubsection{\texorpdfstring{fsm\_is\_btn\_pressed()}{fsm\_is\_btn\_pressed()}}
+{\footnotesize\ttfamily bool fsm\+\_\+is\+\_\+btn\+\_\+pressed (\begin{DoxyParamCaption}\item[{elev\+\_\+button\+\_\+type\+\_\+t $\ast$}]{button,  }\item[{int $\ast$}]{floor }\end{DoxyParamCaption})}
+
+
+
+Checks if any request button is pressed, and also returns which one if it is pressed (by reference). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em button} & Button-\/value pointer \\
+\hline
+\mbox{\texttt{ out}}  & {\em floor} & Floor-\/value pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if any request button is pressed, 0 if not 
+\end{DoxyReturn}
+
+
+Definition at line 180 of file fsm.\+c.
+
+\mbox{\Hypertarget{fsm_8h_adc0ce09809b99f460acc793aa47e33ff}\label{fsm_8h_adc0ce09809b99f460acc793aa47e33ff}} 
+\index{fsm.h@{fsm.h}!fsm\_main\_loop@{fsm\_main\_loop}}
+\index{fsm\_main\_loop@{fsm\_main\_loop}!fsm.h@{fsm.h}}
+\subsubsection{\texorpdfstring{fsm\_main\_loop()}{fsm\_main\_loop()}}
+{\footnotesize\ttfamily int fsm\+\_\+main\+\_\+loop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$}]{elev }\end{DoxyParamCaption})}
+
+
+
+Main loop which contains the entire system logic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+exit code 0 
+\end{DoxyReturn}
+
+
+Definition at line 6 of file fsm.\+c.
+
+\mbox{\Hypertarget{fsm_8h_ade8d2d046dca5b61c4265ba14eebf44e}\label{fsm_8h_ade8d2d046dca5b61c4265ba14eebf44e}} 
+\index{fsm.h@{fsm.h}!fsm\_move@{fsm\_move}}
+\index{fsm\_move@{fsm\_move}!fsm.h@{fsm.h}}
+\subsubsection{\texorpdfstring{fsm\_move()}{fsm\_move()}}
+{\footnotesize\ttfamily void fsm\+\_\+move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$}]{elev }\end{DoxyParamCaption})}
+
+
+
+Enter state {\ttfamily Move} . Gets new direction and starts motor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure pointer \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 160 of file fsm.\+c.
+
+\mbox{\Hypertarget{fsm_8h_a9994c1937638cecfc7643916ca193fe8}\label{fsm_8h_a9994c1937638cecfc7643916ca193fe8}} 
+\index{fsm.h@{fsm.h}!fsm\_open\_doors@{fsm\_open\_doors}}
+\index{fsm\_open\_doors@{fsm\_open\_doors}!fsm.h@{fsm.h}}
+\subsubsection{\texorpdfstring{fsm\_open\_doors()}{fsm\_open\_doors()}}
+{\footnotesize\ttfamily void fsm\+\_\+open\+\_\+doors (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$}]{elev }\end{DoxyParamCaption})}
+
+
+
+Enter state {\ttfamily Doors\+\_\+\+Open} . Stops engine, open doors, start timer and clear requests at current floor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure pointer \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 166 of file fsm.\+c.
+
+\mbox{\Hypertarget{fsm_8h_a3381e73362b1c8480e54a67d0d5dc200}\label{fsm_8h_a3381e73362b1c8480e54a67d0d5dc200}} 
+\index{fsm.h@{fsm.h}!fsm\_request\_btn\_pressed@{fsm\_request\_btn\_pressed}}
+\index{fsm\_request\_btn\_pressed@{fsm\_request\_btn\_pressed}!fsm.h@{fsm.h}}
+\subsubsection{\texorpdfstring{fsm\_request\_btn\_pressed()}{fsm\_request\_btn\_pressed()}}
+{\footnotesize\ttfamily void fsm\+\_\+request\+\_\+btn\+\_\+pressed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$}]{elev,  }\item[{int}]{floor,  }\item[{elev\+\_\+button\+\_\+type\+\_\+t}]{button }\end{DoxyParamCaption})}
+
+
+
+Event triggered by button inputs. Changes elevator state to {\ttfamily Move} or {\ttfamily Doors\+\_\+\+Open} depending on current state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure pointer \\
+\hline
+{\em floor} & Floor value from button input \\
+\hline
+{\em button} & Button value from button input \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 84 of file fsm.\+c.
+
+\mbox{\Hypertarget{fsm_8h_a760c7e760ec9134df442f0504a917e9e}\label{fsm_8h_a760c7e760ec9134df442f0504a917e9e}} 
+\index{fsm.h@{fsm.h}!fsm\_stop\_btn\_pressed@{fsm\_stop\_btn\_pressed}}
+\index{fsm\_stop\_btn\_pressed@{fsm\_stop\_btn\_pressed}!fsm.h@{fsm.h}}
+\subsubsection{\texorpdfstring{fsm\_stop\_btn\_pressed()}{fsm\_stop\_btn\_pressed()}}
+{\footnotesize\ttfamily void fsm\+\_\+stop\+\_\+btn\+\_\+pressed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$}]{elev }\end{DoxyParamCaption})}
+
+
+
+Event triggered by stop button input. Enter state {\ttfamily Stop}, stops polling buttons, clears queue and sets stop button lamp. Busy wait until button is released. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure pointer \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 119 of file fsm.\+c.
+
+\mbox{\Hypertarget{fsm_8h_a8c26e51e3d437770dd715c01e288d1db}\label{fsm_8h_a8c26e51e3d437770dd715c01e288d1db}} 
+\index{fsm.h@{fsm.h}!fsm\_timer\_timeout@{fsm\_timer\_timeout}}
+\index{fsm\_timer\_timeout@{fsm\_timer\_timeout}!fsm.h@{fsm.h}}
+\subsubsection{\texorpdfstring{fsm\_timer\_timeout()}{fsm\_timer\_timeout()}}
+{\footnotesize\ttfamily void fsm\+\_\+timer\+\_\+timeout (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtag__elevator}{Elevator}} $\ast$}]{elev }\end{DoxyParamCaption})}
+
+
+
+Event triggered on timer timeout. Stops timer, closes the door, enters state Idle if no further orders in queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elev} & System structure pointer \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 148 of file fsm.\+c.
+

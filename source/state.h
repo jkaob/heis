@@ -23,6 +23,7 @@ typedef enum tag_elevatorState {
 /**
   Elevator structure, contains memory of current state, position, direction and a 2-dimensional request array. 
   Also contains direction before activating the stop button.
+  @brief Elevator structure, containing memory.
 */
 typedef struct tag_elevator {
 	int 					currentFloor;
