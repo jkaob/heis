@@ -47,12 +47,15 @@ void fsm_init_elevator(Elevator* elev) {
 		//Move down to nearest floor and then stop 
 	}
 	elev_set_motor_direction(DIRN_STOP);
-
+	
+	//Sets current direction to DOWN, as the stop button has not been pressed. 
 	elev->currentDir = DIRN_DOWN;
-
+	
+	//Sets current floor and floor indicator
 	elev->currentFloor = elev_get_floor_sensor_signal();
 	elev_set_floor_indicator(elev_get_floor_sensor_signal());
 	
+	//Initializing the queue matrix, clearing all orders.
 	for (int i = 0; i < N_FLOORS; i++) {
 		for (int j = 0; j < N_BUTTONS; j++) {
 			elev->queue[i][j] = 0;
@@ -66,10 +69,11 @@ void fsm_init_elevator(Elevator* elev) {
 
 
 void fsm_arrive_at_floor(Elevator* elev, int floor){
-	//if floor sensor is already activated - Elevator is idle or waiting.
+	//if floor sensor is already activated, meaning elevator is idle or waiting, return.
 	if (elev->currentFloor == floor && !g_emergencyFlag) 
 		return; 	
-	g_emergencyFlag = 0;	//Resetting emergency flag
+	//Resetting the emergency flag for the stop inbetween floors-situation.
+	g_emergencyFlag = 0;
 	
 	//in case of bug or timer fault
 	if (floor!= -1) {	
@@ -105,11 +109,13 @@ void fsm_request_btn_pressed(Elevator* elev , int floor, elev_button_type_t butt
 			//if request is at current floor, re-enter STATE_DoorsOpen. 
 			if(floor == elev->currentFloor)	
 				fsm_open_doors(elev);
+			
 			//else add to queue
 			else			
 				q_add(floor, button, elev);	 
 			break;
 		
+		//If State_Init or State_Stop, no event on button press
 		case State_Init:
 		case State_Stop:
 			break;
@@ -120,8 +126,10 @@ void fsm_stop_btn_pressed(Elevator* elev){
 	//Stop elevator and change state
 	elev->currentState = State_Stop;
 	elev_set_motor_direction(0);
+	//Toggles stop lamp and clears queue
 	elev_set_stop_lamp(1);
 	q_clear(elev);
+	//If elevator is at floor, open the doors 
 	if (fsm_is_at_floor())
 		elev_set_door_open_lamp(1);
 	
@@ -136,7 +144,7 @@ void fsm_stop_btn_pressed(Elevator* elev){
 	while(elev_get_stop_signal()) {	
 	}
 	
-	//stop button released
+	//stop button released. If elevator is at floor, enter State_DoorsOpen, if not, enter State_Idle. 
 	elev_set_stop_lamp(0);
 	if (fsm_is_at_floor())
 		fsm_open_doors(elev);
@@ -159,17 +167,24 @@ void fsm_timer_timeout(Elevator* elev){
 
 void fsm_move(Elevator* elev) {
 	elev->currentState = State_Move;
+	
+	//Gets and sets new direction
 	elev->currentDir = fsm_get_direction(elev);
 	elev_set_motor_direction(elev->currentDir);
 }
 
 void fsm_open_doors(Elevator* elev) {
-	elev->currentState = State_DoorsOpen;	//changes state
-	elev_set_motor_direction(0);			//stops elevator
-	q_complete(elev);						//clears orders and turns off order lamps
+	elev->currentState = State_DoorsOpen;
 	
+	//Stops motor
+	elev_set_motor_direction(0);	
+	
+	//Completes the orders at the current floor 
+	q_complete(elev);
+	
+	//starts 3sec timer and opens door 
 	elev_set_door_open_lamp(1);
-	timer_start(3); 							//starts 3sec timer
+	timer_start(3); 							
 }
 
 
@@ -201,6 +216,7 @@ elev_motor_direction_t fsm_get_direction(Elevator* elev) {
     switch(elev->currentDir) {
             //if current/last direction was UP
         case(DIRN_UP):
+			//Prioritizes orders in the same direction as current.
             if (q_check_orders_above(*elev))
                 return DIRN_UP;
             else if (q_check_orders_below(*elev))
@@ -217,28 +233,27 @@ elev_motor_direction_t fsm_get_direction(Elevator* elev) {
         case(DIRN_STOP):
             
             //if elevator was stopped between floors
-            if (!fsm_is_at_floor()) { // -> merk her at vi bruker en funksjon fra fsm aka kan ikke ligge i queue
-                printf("%s","Elev between floors\n");
+            if (!fsm_is_at_floor()) { 
                 
-                //if last direction before stopping was UP (elevator is above current floor) :
+                //if last direction before stopping was UP (elevator is above current floor):
                 if (elev->emergencyDir == DIRN_UP) {
-                    printf("Emergency = UP");
                     
                     if(q_check_orders_above(*elev))
                         return DIRN_UP;
                     
+					//Checks if there are any new requests at floor last passed.
                     for (int i = 0; i < N_BUTTONS; i++) {
                         if (elev->queue[elev->currentFloor][i])
                             return DIRN_DOWN;
                     }
                 }
-                //if last direction was DOWN (elevator is below current floor)
+                //if last direction before stopping was DOWN (elevator is below current floor):
                 if (elev->emergencyDir == DIRN_DOWN) {
-                    printf("Emergency = DOWN");
                     
                     if(q_check_orders_below(*elev))
                         return DIRN_DOWN;
                     
+					//Checks if there are any new requests at floor last passed.
                     for (int i = 0; i < N_BUTTONS; i++) {
                         if (elev->queue[elev->currentFloor][i])
                             return DIRN_UP;
@@ -246,6 +261,7 @@ elev_motor_direction_t fsm_get_direction(Elevator* elev) {
                 }
             }
             
+			//if elevator is at a floor, meaning it should behave normally. 
             if(q_check_orders_above(*elev))
                 return DIRN_UP;
             
