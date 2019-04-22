@@ -38,4 +38,4 @@ void timer_stop();
 */
 int timer_check();
 
-#endif /* timer_h */
+#endif

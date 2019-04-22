@@ -24,7 +24,7 @@
    <div id="projectname">Heis-o-rama
    &#160;<span id="projectnumber">1</span>
    </div>
-   <div id="projectbrief">Heisprosjekt. Det går opp og ned.</div>
+   <div id="projectbrief">Gr.20 | Heisprosjekt</div>
   </td>
  </tr>
  </tbody>
@@ -78,28 +78,28 @@ $(function() {
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
-<code>#include &quot;state.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="state_8h_source.html">state.h</a>&quot;</code><br />
 </div>
 <p><a href="queue_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2e96e663807d770240910bcf15c78ed2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="queue_8h.html#a2e96e663807d770240910bcf15c78ed2">q_check_orders_above</a> (<a class="el" href="structtag__elevator.html">Elevator</a> elev)</td></tr>
+<tr class="memitem:a2e96e663807d770240910bcf15c78ed2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="queue_8h.html#a2e96e663807d770240910bcf15c78ed2">q_check_orders_above</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> elev)</td></tr>
 <tr class="memdesc:a2e96e663807d770240910bcf15c78ed2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates the queue, and checks if there are orders above current floor.  <a href="#a2e96e663807d770240910bcf15c78ed2">More...</a><br /></td></tr>
 <tr class="separator:a2e96e663807d770240910bcf15c78ed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31991860821d5e1efe086c8d524df923"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="queue_8h.html#a31991860821d5e1efe086c8d524df923">q_check_orders_below</a> (<a class="el" href="structtag__elevator.html">Elevator</a> elev)</td></tr>
+<tr class="memitem:a31991860821d5e1efe086c8d524df923"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="queue_8h.html#a31991860821d5e1efe086c8d524df923">q_check_orders_below</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> elev)</td></tr>
 <tr class="memdesc:a31991860821d5e1efe086c8d524df923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates the queue, and checks if there are orders below current floor.  <a href="#a31991860821d5e1efe086c8d524df923">More...</a><br /></td></tr>
 <tr class="separator:a31991860821d5e1efe086c8d524df923"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1eee30ad347625340dfe630b40db16d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="queue_8h.html#aa1eee30ad347625340dfe630b40db16d">q_should_stop</a> (<a class="el" href="structtag__elevator.html">Elevator</a> elev)</td></tr>
-<tr class="memdesc:aa1eee30ad347625340dfe630b40db16d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if there are orders in the same direction or if passenger wants to get off at current floor. Also if there are no further orders in the queue.  <a href="#aa1eee30ad347625340dfe630b40db16d">More...</a><br /></td></tr>
+<tr class="memitem:aa1eee30ad347625340dfe630b40db16d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="queue_8h.html#aa1eee30ad347625340dfe630b40db16d">q_should_stop</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> elev)</td></tr>
+<tr class="memdesc:aa1eee30ad347625340dfe630b40db16d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if there are orders in the same direction or if passenger wants to get off at current floor. Also returns <code>true</code> if there are no further orders in the queue.  <a href="#aa1eee30ad347625340dfe630b40db16d">More...</a><br /></td></tr>
 <tr class="separator:aa1eee30ad347625340dfe630b40db16d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2af53998b9cc7db0a90c8d024ccaf606"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="queue_8h.html#a2af53998b9cc7db0a90c8d024ccaf606">q_add</a> (int floor, elev_button_type_t button, <a class="el" href="structtag__elevator.html">Elevator</a> *elev)</td></tr>
+<tr class="memitem:a2af53998b9cc7db0a90c8d024ccaf606"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="queue_8h.html#a2af53998b9cc7db0a90c8d024ccaf606">q_add</a> (int floor, <a class="el" href="elev_8h.html#af61c4136fb437a2c49037e5a57c9abda">elev_button_type_t</a> button, <a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *elev)</td></tr>
 <tr class="memdesc:a2af53998b9cc7db0a90c8d024ccaf606"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds order to queue and sets order lamp to 1.  <a href="#a2af53998b9cc7db0a90c8d024ccaf606">More...</a><br /></td></tr>
 <tr class="separator:a2af53998b9cc7db0a90c8d024ccaf606"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8088760b5ba0b58d08ac5a01af7144e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="queue_8h.html#ab8088760b5ba0b58d08ac5a01af7144e">q_complete</a> (<a class="el" href="structtag__elevator.html">Elevator</a> *elev)</td></tr>
+<tr class="memitem:ab8088760b5ba0b58d08ac5a01af7144e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="queue_8h.html#ab8088760b5ba0b58d08ac5a01af7144e">q_complete</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *elev)</td></tr>
 <tr class="memdesc:ab8088760b5ba0b58d08ac5a01af7144e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes orders at current floor when completed and sets the lights to 0.  <a href="#ab8088760b5ba0b58d08ac5a01af7144e">More...</a><br /></td></tr>
 <tr class="separator:ab8088760b5ba0b58d08ac5a01af7144e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaec3e2258e32716f3541beb81de1ed56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="queue_8h.html#aaec3e2258e32716f3541beb81de1ed56">q_clear</a> (<a class="el" href="structtag__elevator.html">Elevator</a> *elev)</td></tr>
+<tr class="memitem:aaec3e2258e32716f3541beb81de1ed56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="queue_8h.html#aaec3e2258e32716f3541beb81de1ed56">q_clear</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *elev)</td></tr>
 <tr class="memdesc:aaec3e2258e32716f3541beb81de1ed56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the entire queue and sets all order lamps to 0.  <a href="#aaec3e2258e32716f3541beb81de1ed56">More...</a><br /></td></tr>
 <tr class="separator:aaec3e2258e32716f3541beb81de1ed56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -123,13 +123,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">elev_button_type_t&#160;</td>
+          <td class="paramtype"><a class="el" href="elev_8h.html#af61c4136fb437a2c49037e5a57c9abda">elev_button_type_t</a>&#160;</td>
           <td class="paramname"><em>button</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *&#160;</td>
           <td class="paramname"><em>elev</em>&#160;</td>
         </tr>
         <tr>
@@ -163,7 +163,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool q_check_orders_above </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a>&#160;</td>
           <td class="paramname"><em>elev</em></td><td>)</td>
           <td></td>
         </tr>
@@ -192,7 +192,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool q_check_orders_below </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a>&#160;</td>
           <td class="paramname"><em>elev</em></td><td>)</td>
           <td></td>
         </tr>
@@ -221,7 +221,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void q_clear </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *&#160;</td>
           <td class="paramname"><em>elev</em></td><td>)</td>
           <td></td>
         </tr>
@@ -249,7 +249,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void q_complete </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *&#160;</td>
           <td class="paramname"><em>elev</em></td><td>)</td>
           <td></td>
         </tr>
@@ -277,14 +277,14 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool q_should_stop </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a>&#160;</td>
           <td class="paramname"><em>elev</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns true if there are orders in the same direction or if passenger wants to get off at current floor. Also if there are no further orders in the queue. </p>
+<p>Returns <code>true</code> if there are orders in the same direction or if passenger wants to get off at current floor. Also returns <code>true</code> if there are no further orders in the queue. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">elev</td><td>System structure </td></tr>

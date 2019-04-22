@@ -24,7 +24,7 @@
    <div id="projectname">Heis-o-rama
    &#160;<span id="projectnumber">1</span>
    </div>
-   <div id="projectbrief">Heisprosjekt. Det går opp og ned.</div>
+   <div id="projectbrief">Gr.20 | Heisprosjekt</div>
   </td>
  </tr>
  </tbody>
@@ -74,54 +74,55 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Final State Machine for system, containing trigger events, state transitions and main loop.  
+<p>Final State Machine.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="queue_8h_source.html">queue.h</a>&quot;</code><br />
-<code>#include &quot;state.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="state_8h_source.html">state.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="timer_8h_source.html">timer.h</a>&quot;</code><br />
 </div>
 <p><a href="fsm_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:adc0ce09809b99f460acc793aa47e33ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#adc0ce09809b99f460acc793aa47e33ff">fsm_main_loop</a> (<a class="el" href="structtag__elevator.html">Elevator</a> *elev)</td></tr>
+<tr class="memitem:adc0ce09809b99f460acc793aa47e33ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#adc0ce09809b99f460acc793aa47e33ff">fsm_main_loop</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *elev)</td></tr>
 <tr class="memdesc:adc0ce09809b99f460acc793aa47e33ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main loop which contains the entire system logic.  <a href="#adc0ce09809b99f460acc793aa47e33ff">More...</a><br /></td></tr>
 <tr class="separator:adc0ce09809b99f460acc793aa47e33ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84de27b9833d4216a1f47c9cec4a1711"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a84de27b9833d4216a1f47c9cec4a1711">fsm_init_elevator</a> (<a class="el" href="structtag__elevator.html">Elevator</a> *elev)</td></tr>
+<tr class="memitem:a84de27b9833d4216a1f47c9cec4a1711"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a84de27b9833d4216a1f47c9cec4a1711">fsm_init_elevator</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *elev)</td></tr>
 <tr class="memdesc:a84de27b9833d4216a1f47c9cec4a1711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializing elevator system at start. Enters state <code>Idle</code> after initializing.  <a href="#a84de27b9833d4216a1f47c9cec4a1711">More...</a><br /></td></tr>
 <tr class="separator:a84de27b9833d4216a1f47c9cec4a1711"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d9544e19109032702b02c9331db418d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a1d9544e19109032702b02c9331db418d">fsm_arrive_at_floor</a> (<a class="el" href="structtag__elevator.html">Elevator</a> *elev, int floor)</td></tr>
+<tr class="memitem:a1d9544e19109032702b02c9331db418d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a1d9544e19109032702b02c9331db418d">fsm_arrive_at_floor</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *elev, int floor)</td></tr>
 <tr class="memdesc:a1d9544e19109032702b02c9331db418d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event triggered by active floor sensor.  <a href="#a1d9544e19109032702b02c9331db418d">More...</a><br /></td></tr>
 <tr class="separator:a1d9544e19109032702b02c9331db418d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3381e73362b1c8480e54a67d0d5dc200"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a3381e73362b1c8480e54a67d0d5dc200">fsm_request_btn_pressed</a> (<a class="el" href="structtag__elevator.html">Elevator</a> *elev, int floor, elev_button_type_t button)</td></tr>
+<tr class="memitem:a3381e73362b1c8480e54a67d0d5dc200"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a3381e73362b1c8480e54a67d0d5dc200">fsm_request_btn_pressed</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *elev, int floor, <a class="el" href="elev_8h.html#af61c4136fb437a2c49037e5a57c9abda">elev_button_type_t</a> button)</td></tr>
 <tr class="memdesc:a3381e73362b1c8480e54a67d0d5dc200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event triggered by button inputs. Changes elevator state to <code>Move</code> or <code>Doors_Open</code> depending on current state.  <a href="#a3381e73362b1c8480e54a67d0d5dc200">More...</a><br /></td></tr>
 <tr class="separator:a3381e73362b1c8480e54a67d0d5dc200"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a760c7e760ec9134df442f0504a917e9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a760c7e760ec9134df442f0504a917e9e">fsm_stop_btn_pressed</a> (<a class="el" href="structtag__elevator.html">Elevator</a> *elev)</td></tr>
+<tr class="memitem:a760c7e760ec9134df442f0504a917e9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a760c7e760ec9134df442f0504a917e9e">fsm_stop_btn_pressed</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *elev)</td></tr>
 <tr class="memdesc:a760c7e760ec9134df442f0504a917e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event triggered by stop button input. Enter state <code>Stop</code>, stops polling buttons, clears queue and sets stop button lamp. Busy wait until button is released.  <a href="#a760c7e760ec9134df442f0504a917e9e">More...</a><br /></td></tr>
 <tr class="separator:a760c7e760ec9134df442f0504a917e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c26e51e3d437770dd715c01e288d1db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a8c26e51e3d437770dd715c01e288d1db">fsm_timer_timeout</a> (<a class="el" href="structtag__elevator.html">Elevator</a> *elev)</td></tr>
+<tr class="memitem:a8c26e51e3d437770dd715c01e288d1db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a8c26e51e3d437770dd715c01e288d1db">fsm_timer_timeout</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *elev)</td></tr>
 <tr class="memdesc:a8c26e51e3d437770dd715c01e288d1db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event triggered on timer timeout. Stops timer, closes the door, enters state Idle if no further orders in queue.  <a href="#a8c26e51e3d437770dd715c01e288d1db">More...</a><br /></td></tr>
 <tr class="separator:a8c26e51e3d437770dd715c01e288d1db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade8d2d046dca5b61c4265ba14eebf44e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#ade8d2d046dca5b61c4265ba14eebf44e">fsm_move</a> (<a class="el" href="structtag__elevator.html">Elevator</a> *elev)</td></tr>
+<tr class="memitem:ade8d2d046dca5b61c4265ba14eebf44e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#ade8d2d046dca5b61c4265ba14eebf44e">fsm_move</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *elev)</td></tr>
 <tr class="memdesc:ade8d2d046dca5b61c4265ba14eebf44e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enter state <code>Move</code> . Gets new direction and starts motor.  <a href="#ade8d2d046dca5b61c4265ba14eebf44e">More...</a><br /></td></tr>
 <tr class="separator:ade8d2d046dca5b61c4265ba14eebf44e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9994c1937638cecfc7643916ca193fe8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a9994c1937638cecfc7643916ca193fe8">fsm_open_doors</a> (<a class="el" href="structtag__elevator.html">Elevator</a> *elev)</td></tr>
+<tr class="memitem:a9994c1937638cecfc7643916ca193fe8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a9994c1937638cecfc7643916ca193fe8">fsm_open_doors</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *elev)</td></tr>
 <tr class="memdesc:a9994c1937638cecfc7643916ca193fe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enter state <code>Doors_Open</code> . Stops engine, open doors, start timer and clear requests at current floor.  <a href="#a9994c1937638cecfc7643916ca193fe8">More...</a><br /></td></tr>
 <tr class="separator:a9994c1937638cecfc7643916ca193fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d3e1b9f22d74819532fcef39960c9f8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a9d3e1b9f22d74819532fcef39960c9f8">fsm_is_at_floor</a> ()</td></tr>
 <tr class="memdesc:a9d3e1b9f22d74819532fcef39960c9f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if floor sensor is active.  <a href="#a9d3e1b9f22d74819532fcef39960c9f8">More...</a><br /></td></tr>
 <tr class="separator:a9d3e1b9f22d74819532fcef39960c9f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3af84a536ecf351833055f83328527c2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a3af84a536ecf351833055f83328527c2">fsm_is_btn_pressed</a> (elev_button_type_t *button, int *floor)</td></tr>
+<tr class="memitem:a3af84a536ecf351833055f83328527c2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#a3af84a536ecf351833055f83328527c2">fsm_is_btn_pressed</a> (<a class="el" href="elev_8h.html#af61c4136fb437a2c49037e5a57c9abda">elev_button_type_t</a> *button, int *floor)</td></tr>
 <tr class="memdesc:a3af84a536ecf351833055f83328527c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if any request button is pressed, and also returns which one if it is pressed (by reference).  <a href="#a3af84a536ecf351833055f83328527c2">More...</a><br /></td></tr>
 <tr class="separator:a3af84a536ecf351833055f83328527c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1361b15228c0d17a1f9eda4ef46f542"><td class="memItemLeft" align="right" valign="top">elev_motor_direction_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#af1361b15228c0d17a1f9eda4ef46f542">fsm_get_direction</a> (<a class="el" href="structtag__elevator.html">Elevator</a> *elev)</td></tr>
+<tr class="memitem:af1361b15228c0d17a1f9eda4ef46f542"><td class="memItemLeft" align="right" valign="top"><a class="el" href="elev_8h.html#a2256dfd58fecce253106f83fd2ed607f">elev_motor_direction_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fsm_8h.html#af1361b15228c0d17a1f9eda4ef46f542">fsm_get_direction</a> (<a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *elev)</td></tr>
 <tr class="memdesc:af1361b15228c0d17a1f9eda4ef46f542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets new motor direction depending on current direction and queue. If stop was pressed, also considers last direction before the stop button was pressed.  <a href="#af1361b15228c0d17a1f9eda4ef46f542">More...</a><br /></td></tr>
 <tr class="separator:af1361b15228c0d17a1f9eda4ef46f542"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Final State Machine for system, containing trigger events, state transitions and main loop. </p>
+<div class="textblock"><p>Final State Machine. </p>
+<p>Contains main loop, initializing-function, 4 trigger events and 2 state transitions. Also contains 3 logic functions. </p>
 
 <p class="definition">Definition in file <a class="el" href="fsm_8h_source.html">fsm.h</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
@@ -134,7 +135,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void fsm_arrive_at_floor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *&#160;</td>
           <td class="paramname"><em>elev</em>, </td>
         </tr>
         <tr>
@@ -171,9 +172,9 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">elev_motor_direction_t fsm_get_direction </td>
+          <td class="memname"><a class="el" href="elev_8h.html#a2256dfd58fecce253106f83fd2ed607f">elev_motor_direction_t</a> fsm_get_direction </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *&#160;</td>
           <td class="paramname"><em>elev</em></td><td>)</td>
           <td></td>
         </tr>
@@ -202,7 +203,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void fsm_init_elevator </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *&#160;</td>
           <td class="paramname"><em>elev</em></td><td>)</td>
           <td></td>
         </tr>
@@ -252,7 +253,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool fsm_is_btn_pressed </td>
           <td>(</td>
-          <td class="paramtype">elev_button_type_t *&#160;</td>
+          <td class="paramtype"><a class="el" href="elev_8h.html#af61c4136fb437a2c49037e5a57c9abda">elev_button_type_t</a> *&#160;</td>
           <td class="paramname"><em>button</em>, </td>
         </tr>
         <tr>
@@ -292,7 +293,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int fsm_main_loop </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *&#160;</td>
           <td class="paramname"><em>elev</em></td><td>)</td>
           <td></td>
         </tr>
@@ -321,7 +322,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void fsm_move </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *&#160;</td>
           <td class="paramname"><em>elev</em></td><td>)</td>
           <td></td>
         </tr>
@@ -349,7 +350,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void fsm_open_doors </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *&#160;</td>
           <td class="paramname"><em>elev</em></td><td>)</td>
           <td></td>
         </tr>
@@ -377,7 +378,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void fsm_request_btn_pressed </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *&#160;</td>
           <td class="paramname"><em>elev</em>, </td>
         </tr>
         <tr>
@@ -389,7 +390,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">elev_button_type_t&#160;</td>
+          <td class="paramtype"><a class="el" href="elev_8h.html#af61c4136fb437a2c49037e5a57c9abda">elev_button_type_t</a>&#160;</td>
           <td class="paramname"><em>button</em>&#160;</td>
         </tr>
         <tr>
@@ -423,7 +424,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void fsm_stop_btn_pressed </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *&#160;</td>
           <td class="paramname"><em>elev</em></td><td>)</td>
           <td></td>
         </tr>
@@ -451,7 +452,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void fsm_timer_timeout </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtag__elevator.html">Elevator</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="state_8h.html#a23c1fbe5472a6c0bef272cc744f54701">Elevator</a> *&#160;</td>
           <td class="paramname"><em>elev</em></td><td>)</td>
           <td></td>
         </tr>

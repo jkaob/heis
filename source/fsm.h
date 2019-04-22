@@ -1,6 +1,9 @@
 /**
 * @file
-* @brief Final State Machine for system, containing trigger events, state transitions and main loop.
+
+	Contains main loop, initializing-function, 4 trigger events and 2 state transitions.
+	Also contains 3 logic functions.
+* @brief Final State Machine.
 */
 
 #ifndef FSM_H

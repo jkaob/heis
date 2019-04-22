@@ -1,0 +1,87 @@
+\hypertarget{state_8h}{}\section{source/state.h File Reference}
+\label{state_8h}\index{source/state.h@{source/state.h}}
+
+
+State for the final state machine.  
+
+
+{\ttfamily \#include \char`\"{}elev.\+h\char`\"{}}\newline
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtag__elevator}{tag\+\_\+elevator}}
+\begin{DoxyCompactList}\small\item\em Elevator structure, containing memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \mbox{\hyperlink{state_8h_a04c0b88ff50ae74bf5933d358d579857}{tag\+\_\+elevator\+State}} \mbox{\hyperlink{state_8h_a3ba496a58538f02dfa238b58a26f3501}{Elev\+State}}
+\item 
+typedef struct \mbox{\hyperlink{structtag__elevator}{tag\+\_\+elevator}} \mbox{\hyperlink{state_8h_a23c1fbe5472a6c0bef272cc744f54701}{Elevator}}
+\begin{DoxyCompactList}\small\item\em Elevator structure, containing memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{state_8h_a04c0b88ff50ae74bf5933d358d579857}{tag\+\_\+elevator\+State}} \{ \newline
+{\bfseries State\+\_\+\+Idle} = 0, 
+{\bfseries State\+\_\+\+Move} = 1, 
+{\bfseries State\+\_\+\+Doors\+Open} = 2, 
+{\bfseries State\+\_\+\+Stop} = 3, 
+\newline
+{\bfseries State\+\_\+\+Init} = 4
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{state_8h_ad0d2431c107ad45be5b4a385683473ea}{g\+\_\+emergency\+Flag}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+State for the final state machine. 
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{state_8h_a23c1fbe5472a6c0bef272cc744f54701}\label{state_8h_a23c1fbe5472a6c0bef272cc744f54701}} 
+\index{state.h@{state.h}!Elevator@{Elevator}}
+\index{Elevator@{Elevator}!state.h@{state.h}}
+\subsubsection{\texorpdfstring{Elevator}{Elevator}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structtag__elevator}{tag\+\_\+elevator}}  \mbox{\hyperlink{state_8h_a23c1fbe5472a6c0bef272cc744f54701}{Elevator}}}
+
+
+
+Elevator structure, containing memory. 
+
+Elevator structure, contains memory of current state, position, direction and a 2-\/dimensional request array. Also contains direction before activating the stop button. Request array contains Button type and Floor. \mbox{\Hypertarget{state_8h_a3ba496a58538f02dfa238b58a26f3501}\label{state_8h_a3ba496a58538f02dfa238b58a26f3501}} 
+\index{state.h@{state.h}!ElevState@{ElevState}}
+\index{ElevState@{ElevState}!state.h@{state.h}}
+\subsubsection{\texorpdfstring{ElevState}{ElevState}}
+{\footnotesize\ttfamily typedef enum \mbox{\hyperlink{state_8h_a04c0b88ff50ae74bf5933d358d579857}{tag\+\_\+elevator\+State}}  \mbox{\hyperlink{state_8h_a3ba496a58538f02dfa238b58a26f3501}{Elev\+State}}}
+
+Elevator state for state machine. {\ttfamily Idle} = 0, {\ttfamily Move} = 1, {\ttfamily Doors\+\_\+\+Open} = 2, {\ttfamily Stop} = 3, {\ttfamily Init} = 4. 
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{state_8h_a04c0b88ff50ae74bf5933d358d579857}\label{state_8h_a04c0b88ff50ae74bf5933d358d579857}} 
+\index{state.h@{state.h}!tag\_elevatorState@{tag\_elevatorState}}
+\index{tag\_elevatorState@{tag\_elevatorState}!state.h@{state.h}}
+\subsubsection{\texorpdfstring{tag\_elevatorState}{tag\_elevatorState}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{state_8h_a04c0b88ff50ae74bf5933d358d579857}{tag\+\_\+elevator\+State}}}
+
+Elevator state for state machine. {\ttfamily Idle} = 0, {\ttfamily Move} = 1, {\ttfamily Doors\+\_\+\+Open} = 2, {\ttfamily Stop} = 3, {\ttfamily Init} = 4. 
+
+Definition at line 20 of file state.\+h.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{state_8h_ad0d2431c107ad45be5b4a385683473ea}\label{state_8h_ad0d2431c107ad45be5b4a385683473ea}} 
+\index{state.h@{state.h}!g\_emergencyFlag@{g\_emergencyFlag}}
+\index{g\_emergencyFlag@{g\_emergencyFlag}!state.h@{state.h}}
+\subsubsection{\texorpdfstring{g\_emergencyFlag}{g\_emergencyFlag}}
+{\footnotesize\ttfamily int g\+\_\+emergency\+Flag}
+
+Global variable. Emergency flag which is activated upon pressing the S\+T\+OP button. If activated, last elevator direction will be saved in order to locate elevator between floors. 
+
+Definition at line 4 of file fsm.\+c.
+

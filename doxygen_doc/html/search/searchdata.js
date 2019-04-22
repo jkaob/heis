@@ -1,10 +1,12 @@
 var indexSectionsWithContent =
 {
-  0: "fgqt",
+  0: "efgimqst",
   1: "t",
-  2: "fqt",
-  3: "fqt",
-  4: "g"
+  2: "efimqst",
+  3: "efiqt",
+  4: "g",
+  5: "e",
+  6: "t"
 };
 
 var indexSectionNames =
@@ -13,7 +15,9 @@ var indexSectionNames =
   1: "classes",
   2: "files",
   3: "functions",
-  4: "variables"
+  4: "variables",
+  5: "typedefs",
+  6: "enums"
 };
 
 var indexSectionLabels =
@@ -22,6 +26,8 @@ var indexSectionLabels =
   1: "Data Structures",
   2: "Files",
   3: "Functions",
-  4: "Variables"
+  4: "Variables",
+  5: "Typedefs",
+  6: "Enumerations"
 };
 

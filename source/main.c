@@ -1,3 +1,8 @@
+/**
+* @file
+* @brief Main file.
+*/
+
 #include "elev.h"
 #include "fsm.h"
 #include <stdio.h>

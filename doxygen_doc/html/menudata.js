@@ -29,6 +29,19 @@ var menudata={children:[
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"},
 {text:"Globals",url:"globals.html",children:[
-{text:"All",url:"globals.html"},
-{text:"Functions",url:"globals_func.html"},
-{text:"Variables",url:"globals_vars.html"}]}]}]}
+{text:"All",url:"globals.html",children:[
+{text:"e",url:"globals.html#index_e"},
+{text:"f",url:"globals.html#index_f"},
+{text:"g",url:"globals.html#index_g"},
+{text:"i",url:"globals.html#index_i"},
+{text:"q",url:"globals.html#index_q"},
+{text:"t",url:"globals.html#index_t"}]},
+{text:"Functions",url:"globals_func.html",children:[
+{text:"e",url:"globals_func.html#index_e"},
+{text:"f",url:"globals_func.html#index_f"},
+{text:"i",url:"globals_func.html#index_i"},
+{text:"q",url:"globals_func.html#index_q"},
+{text:"t",url:"globals_func.html#index_t"}]},
+{text:"Variables",url:"globals_vars.html"},
+{text:"Typedefs",url:"globals_type.html"},
+{text:"Enumerations",url:"globals_enum.html"}]}]}]}

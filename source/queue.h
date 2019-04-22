@@ -26,8 +26,8 @@ bool q_check_orders_above(Elevator elev);
 bool q_check_orders_below(Elevator elev); 
 
 /**
-*  @brief Returns true if there are orders in the same direction or if passenger wants to get off at current floor. 
-*	Also if there are no further orders in the queue.
+*  @brief Returns @c true if there are orders in the same direction or if passenger wants to get off at current floor. 
+*	Also returns @c true if there are no further orders in the queue.
 *  @param elev System structure
 *  @return 1 if elevator should stop, 0 if not.
 */	

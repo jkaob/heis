@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['tag_5felevator',['tag_elevator',['../structtag__elevator.html',1,'']]],
-  ['timer_2eh',['timer.h',['../timer_8h.html',1,'']]],
-  ['timer_5fcheck',['timer_check',['../timer_8h.html#ad7baf81d78ab00cad677f375f54bbdad',1,'timer.c']]],
-  ['timer_5fcurrent_5ftime',['timer_current_time',['../timer_8h.html#ac7c4c1671a439b30ca3f2d8bbcfa003a',1,'timer.c']]],
-  ['timer_5fstart',['timer_start',['../timer_8h.html#aa7ae9272da2c821c2f3d584562cc560c',1,'timer.c']]],
-  ['timer_5fstop',['timer_stop',['../timer_8h.html#aa04078f48a0e8f5b6860a393ad06b535',1,'timer.c']]]
+  ['io_2eh',['io.h',['../io_8h.html',1,'']]],
+  ['io_5fclear_5fbit',['io_clear_bit',['../io_8h.html#a97951257634a0778b858a4ced7558f81',1,'io.c']]],
+  ['io_5finit',['io_init',['../io_8h.html#a12ce98b64f2019ac45b44826a4db7ec9',1,'io.c']]],
+  ['io_5fread_5fanalog',['io_read_analog',['../io_8h.html#ab145a5637d2c463dfb5741e1a748dd74',1,'io.c']]],
+  ['io_5fread_5fbit',['io_read_bit',['../io_8h.html#ae9e08ee7d41b07b153e2ddaae4dc53cb',1,'io.c']]],
+  ['io_5fset_5fbit',['io_set_bit',['../io_8h.html#a4d538858b80ee856217e3ecfde8a3c60',1,'io.c']]],
+  ['io_5fwrite_5fanalog',['io_write_analog',['../io_8h.html#a1c2c5df63111187109ef11be354621bd',1,'io.c']]]
 ];

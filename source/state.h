@@ -1,15 +1,21 @@
+/**
+* @file
+* @brief State for the final state machine.
+*/
+
 #ifndef STATE_H
 #define STATE_H
 #include "elev.h"
 
 /**
-Emergency flag which is activated upon pressing the STOP button.
-If activated, last elevator direction will be saved in order to locate elevator between floors.
+* Global variable. Emergency flag which is activated upon pressing the STOP button.
+* If activated, last elevator direction will be saved in order to locate elevator between floors.
 */
 extern int g_emergencyFlag;
 
 /**
   Elevator state for state machine.
+  @p Idle = 0, @p Move = 1, @p Doors_Open = 2, @p Stop = 3, @p Init = 4.
 */
 typedef enum tag_elevatorState {
 	State_Idle = 		0,
@@ -21,9 +27,10 @@ typedef enum tag_elevatorState {
 
 
 /**
-  Elevator structure, contains memory of current state, position, direction and a 2-dimensional request array. 
-  Also contains direction before activating the stop button.
-  @brief Elevator structure, containing memory.
+*  Elevator structure, contains memory of current state, position, direction and a 2-dimensional request array. 
+*  Also contains direction before activating the stop button.
+*  Request array contains Button type and Floor.
+*  @brief Elevator structure, containing memory.
 */
 typedef struct tag_elevator {
 	int 					currentFloor;
@@ -31,7 +38,7 @@ typedef struct tag_elevator {
 	int 					emergencyFloor;
 	elev_motor_direction_t 	emergencyDir;
 	ElevState 				currentState;
-	int 					queue[N_FLOORS][N_BUTTONS];  //2D array:   [index = Actual floor - 1] | order_up | order_down | cab_btn |
+	int 					queue[N_FLOORS][N_BUTTONS]; 
 
 } Elevator;
 

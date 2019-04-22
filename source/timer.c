@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 
-static double endTime;
+static double m_endTime;
 int g_timerFlag = 0;
 
 double timer_current_time() {
@@ -16,7 +16,7 @@ double timer_current_time() {
 
 void timer_start(int dur) { 
     g_timerFlag = 1;
-    endTime = dur + timer_current_time();
+    m_endTime = dur + timer_current_time();
 }
 
 void timer_stop() {
@@ -24,5 +24,5 @@ void timer_stop() {
 }
 
 int timer_check() {
-    return (timer_current_time() > endTime);
+    return (timer_current_time() > m_endTime);
 }
