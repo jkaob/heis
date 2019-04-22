@@ -65,7 +65,7 @@ void q_add(int floor, elev_button_type_t button, Elevator* elev) {
 	
 	//Set lamp if lamp exists
 	if (!((button == 1 && floor == 0) || (button == 0 && floor == 3)))
-		elev_set_button_lamp(button, floor, 1);	
+		elev_set_button_lamp(button, floor, 1);	//funker dette siden vi ikke includer elev?
 	
 }
 
@@ -78,7 +78,7 @@ void q_complete(Elevator* elev) {
 		
 		//turn off lamp if lamp exists
 		if (!((b == 1 && f == 0) || (b == 0 && f == 3)))
-			elev_set_button_lamp(b, f, 0); 	
+			elev_set_button_lamp(b, f, 0); 	//includer vi elev?
 	}	
 }
 
@@ -91,7 +91,10 @@ void q_clear(Elevator* elev) {
 			
 			//disables all the requests lamps, if they exist
 			if (!((b == 1 && f == 0) || (b == 0 && f == 3)))
-				elev_set_button_lamp(b, f, 0);
+				elev_set_button_lamp(b, f, 0); //
 		}
 	}
 }
+
+
+

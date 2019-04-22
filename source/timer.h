@@ -1,3 +1,8 @@
+/**
+* @file
+* @brief Timer for finite state machine.
+*/
+
 #ifndef TIMER_H
 #define TIMER_H
 
@@ -5,20 +10,32 @@
 #include <sys/time.h>
 #include <stdio.h>
 
+/**
+* Global variable used for checking if timer has just recently timed out or not. 
+*/
 extern int g_timerFlag;
-// semigenerelt vil oppsettet til en timer bestå av:
-    // sett verdi i timer-register (basert på nåverdi og intervall)
-    // aktiver timer-interrupt i timer-enheten
-    // aktiver timerens interrupt i interrupt controller
-    // lag ISR som bekrefter, tar aksjon og evt. oppdaterer timer-register
 
-//double current_time();
+/**
+*  @brief Calculates current time for the computer.
+*  @return current time
+*/
 double timer_current_time();
 
+/**
+*  @brief Sets @p g_timerFlag to 1, activating the timer.
+*  @param dur Timer duration in seconds.
+*/
 void timer_start(int dur);
 
+/**
+*  @brief Sets @p g_timerFlag to 0, deactivating the timer. 
+*/
 void timer_stop();
 
+/**
+*  @brief Checks whether or not timer is timed out.
+*  @return 1 if timer is timed out, 0 if not.
+*/
 int timer_check();
 
 #endif /* timer_h */

@@ -136,7 +136,7 @@ int elev_get_button_signal(elev_button_type_t button, int floor) {
 
 void elev_set_button_lamp(elev_button_type_t button, int floor, int value) {
     if (floor == -1) {
-        printf("OBS: FLOOR = -1");
+		//This is just a double measure to ensure no runtime errors.
         return;
     };
     assert(floor < N_FLOORS);

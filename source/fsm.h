@@ -1,89 +1,91 @@
+/**
+* @file
+* @brief Final State Machine for system, containing trigger events, state transitions and main loop.
+*/
+
 #ifndef FSM_H
 #define FSM_H
 
 #include <stdbool.h>
 #include <stdio.h>
-#include "elev.h"
 #include "queue.h"
 #include "state.h"
 #include "timer.h"
 
 /**
-  @brief Main loop which contains the entire logic.
-  @param elev System structure
-  @return exit code 1 
+* @brief Main loop which contains the entire system logic.
+* @param elev System structure
+* @return exit code 0
 */
 int fsm_main_loop(Elevator* elev);
 
 /**
-  Initializing elevator system at start.
-  @param elev System structure pointer
+* @brief Initializing elevator system at start. Enters state @c Idle after initializing.
+* @param elev System structure pointer
 */
-int fsm_init_elevator(Elevator* elev);
+void fsm_init_elevator(Elevator* elev);
 
 /**
-  Event triggered by active floor sensor.
-  @param elev System structure pointer
-  @param floor Floor value from sensor signal
+* @brief Event triggered by active floor sensor.
+* @param elev System structure pointer
+* @param floor Floor value from sensor signal
 */
 void fsm_arrive_at_floor(Elevator* elev, int floor);
 
 /**
-  Event triggered by button inputs. Changes elevator state to Move or Doors_Open depending on current state.
-  @param elev System structure pointer
-  @param floor Floor value from button input
-  @param button Button value from button input
+* @brief Event triggered by button inputs. Changes elevator state to @c Move or @c Doors_Open depending on current state.
+* @param elev System structure pointer
+* @param floor Floor value from button input
+* @param button Button value from button input
 */
 void fsm_request_btn_pressed(Elevator* elev , int floor, elev_button_type_t button);
 
 /**
-  Event triggered by stop button input.
-  @param elev System structure pointer
+* @brief Event triggered by stop button input.
+*	Enter state @c Stop, stops polling buttons, clears queue and sets stop button lamp. Busy wait until button is released. 
+* @param elev System structure pointer
 */
 void fsm_stop_btn_pressed(Elevator* elev); 
 
 /**
-  Event triggered on timer timeout.
-  @param elev System structure pointer
+* @brief Event triggered on timer timeout. 
+*	Stops timer, closes the door, enters state Idle if no further orders in queue.
+* @param elev System structure pointer
 */
 void fsm_timer_timeout(Elevator* elev);
 
-
-
-
-/////////////////////////////////////////////////////////////
-
+/**
+* @brief Enter state @c Move . Gets new direction and starts motor.
+* @param elev System structure pointer
+*/
+void fsm_move(Elevator* elev); //Enter STATE_Move
 
 /**
-  Enter Move-state. 
-  @param: elev System structure pointer
+* @brief Enter state @c Doors_Open . Stops engine, open doors, start timer and clear requests at current floor. 
+* @param elev System structure pointer
 */
-void move(Elevator* elev); //Enter STATE_Move
+void fsm_open_doors(Elevator* elev); //Enter STATE_DoorsOpen
 
 /**
-  Enter DoorsOpen-state. 
-  @param: elev System structure pointer
+* @brief Returns @c true if floor sensor is active.
+* @return 1 if elevator is at floor, 0 if not
 */
-void open_doors(Elevator* elev); //Enter STATE_DoorsOpen
+bool fsm_is_at_floor();
 
 /**
-  Gets new direction depending on current direction and queue. 
-  @param: elev System structure pointer
-  @return: new direction
+* @brief Checks if any request button is pressed, and also returns which one if it is pressed (by reference).
+* @param[out] button Button-value pointer
+* @param[out] floor Floor-value pointer
+* @return 1 if any request button is pressed, 0 if not
 */
-elev_motor_direction_t get_direction(Elevator* elev);
-
-
-/**
-  Returns true if floor sensor is active.
-*/
-bool is_at_floor();
+bool fsm_is_btn_pressed(elev_button_type_t* button, int* floor);
 
 /**
-  Returns true if any request button is pressed. Changes param pointer values to button values.
-  @param: button Button-value pointer
-  @param: floor Floor-value pointer
-*/
-bool is_btn_pressed(elev_button_type_t* button, int* floor);
+* @brief Gets new motor direction depending on current direction and queue. 
+*	If stop was pressed, also considers  last direction before the stop button was pressed.
+* @param elev System structure pointer
+* @return new direction for elevator 
+ */
+elev_motor_direction_t fsm_get_direction(Elevator* elev);
 
 #endif

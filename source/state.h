@@ -2,6 +2,10 @@
 #define STATE_H
 #include "elev.h"
 
+/**
+Emergency flag which is activated upon pressing the STOP button.
+If activated, last elevator direction will be saved in order to locate elevator between floors.
+*/
 extern int g_emergencyFlag;
 
 /**
@@ -17,7 +21,8 @@ typedef enum tag_elevatorState {
 
 
 /**
-  Elevator structure, contains memory of current state, position, direction and a 2-dimensional request array. Also contains direction before activating the stop button.
+  Elevator structure, contains memory of current state, position, direction and a 2-dimensional request array. 
+  Also contains direction before activating the stop button.
 */
 typedef struct tag_elevator {
 	int 					currentFloor;

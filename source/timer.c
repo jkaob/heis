@@ -14,7 +14,7 @@ double timer_current_time() {
     return (double)t.tv_sec + (double)t.tv_usec * 0.000001;
 }
 
-void timer_start(int dur) { // starter når dørene åpnes
+void timer_start(int dur) { 
     g_timerFlag = 1;
     endTime = dur + timer_current_time();
 }
